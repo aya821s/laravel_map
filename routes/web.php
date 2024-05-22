@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\ItemController;
 
 Route::get('/',  [WebController::class, 'index'])->name('top');
 
@@ -21,6 +22,9 @@ Route::post('/posts', [PostController::class, 'store'])->middleware(['auth', 've
 
 Route::get('/stores', [StoreController::class, 'index'])->name('stores.index');
 Route::get('/store/{store}', [StoreController::class, 'show'])->name('stores.show');
+
+Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
 
 
 

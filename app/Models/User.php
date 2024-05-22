@@ -46,8 +46,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function posts()
-     {
-         return $this->hasMany(Post::class);
-     }
+    public function favorite_posts() {
+        return $this->belongsToMany(Post::class)->withTimestamps();
+    }
+
+    public function follow_items() {
+        return $this->belongsToMany(Item::class)->withTimestamps();
+    }
 }
