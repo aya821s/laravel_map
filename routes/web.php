@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\StoreController;
 
 Route::get('/',  [WebController::class, 'index'])->name('top');
 
@@ -17,6 +18,9 @@ Route::controller(UserController::class)->group(function () {
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/create', [PostController::class, 'create'])->middleware(['auth', 'verified'])->name('posts.create');
 Route::post('/posts', [PostController::class, 'store'])->middleware(['auth', 'verified'])->name('posts.store');
+
+Route::get('/stores', [StoreController::class, 'index'])->name('stores.index');
+Route::get('/store/{store}', [StoreController::class, 'show'])->name('stores.show');
 
 
 
