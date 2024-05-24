@@ -13,6 +13,9 @@
     @endif
 
     <div>
+        @if ($user->image !== "")
+            <img src="{{ asset('/storage/user_images/'. $user->image) }}" style="width: 250;">
+        @endif
         <div>
             <span>氏名</span>
             <span>{{ $user->name }}</span>
@@ -33,5 +36,9 @@
     </div>
     <div>
         <a href="{{route('mypage.edit')}}">マイページ編集</a>
+    </div>
+
+    <div>
+        <a href="{{ route('users.delete') }}">アカウント削除</a>
     </div>
 </div>

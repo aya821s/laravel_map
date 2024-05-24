@@ -1,13 +1,13 @@
 <div>
-    <h1>投稿一覧</h1>
-
-        @if (session('flash_message'))
-             <p>{{ session('flash_message') }}</p>
-        @endif
-
-        @if($posts->isNotEmpty())
+    <h1>{{$item->name}}の価格マップ</h1>
+    @foreach($stores as $store)
+        <div>
+            <a href="{{ route('stores.show', $store) }}"><h2>{{$store->name}}</h2></a>
+        </div>
+        <div>
             @foreach($posts as $post)
-                <article>
+                @if  ($post->item_store_id == $store->id)
+                    <div style="background: lightgrey;">
                     @if ($post->is_soldout == 1)
                         <p style="color: red;">売り切れです！</p>
                     @endif
@@ -27,10 +27,10 @@
                     @else
                         <p>by {{ $post->user->name }}</p>
                     @endif
-                    <hr>
-                </article>
+                    </div>
+                @endif
             @endforeach
-        @else
-             <p>投稿はありません。</p>
-        @endif
+            <hr>
+        </div>
+    @endforeach
 </div>

@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function index()
      {
-         $posts = Auth::user()->posts()->orderBy('created_at', 'desc')->get();
+         $posts = Post::all()->sortByDesc('created_at');
 
          return view('posts.index', compact('posts'));
      }
@@ -21,7 +21,7 @@ class PostController extends Controller
          return view('posts.create');
      }
 
-     public function store(PostRequest $request)
+     public function store(Request $request)
      {
          $post = new Post();
          $post->price = $request->input('price');
@@ -31,7 +31,7 @@ class PostController extends Controller
          $post->user_id = Auth::id();
 
          if ($request->hasFile('image')) {
-            $image_path = $request->file('image')->store('public/images');
+            $image_path = $request->file('image')->store('public/post_images');
             $post->image = basename($image_path);
         }
          $post->save();

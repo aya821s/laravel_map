@@ -9,7 +9,7 @@ class Item extends Model
 {
     use HasFactory;
 
-    public function store_items() {
+    public function items_store() {
         return $this->belongsToMany(Store::class)->withTimestamps();
     }
 

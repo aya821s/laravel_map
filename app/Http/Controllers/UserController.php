@@ -29,8 +29,27 @@ class UserController extends Controller
          $user->name = $request->input('name') ? $request->input('name') : $user->name;
          $user->email = $request->input('email') ? $request->input('email') : $user->email;
          $user->description = $request->input('description') ? $request->input('description') : $user->description;
+
+         if ($request->hasFile('image')) {
+            $image_path = $request->file('image')->store('public/user_images');
+            $user->image = basename($image_path);
+         }
+
          $user->update();
 
          return to_route('mypage')->with('flash_message', 'マイページを編集しました。');
     }
+
+    public function delete(Request $request)
+     {
+        $user = Auth::user();
+
+        return view('users.delete', compact('user'));
+     }
+
+     public function destroy(Request $request)
+     {
+         Auth::user()->delete();
+         return redirect('/');
+     }
 }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Store;
+use App\Models\Post;
 use Illuminate\Http\Request;
+
 
 class ItemController extends Controller
 {
@@ -19,7 +22,9 @@ class ItemController extends Controller
 
     public function show(Item $item)
     {
-        return view('items.show', compact('item'));
+        $stores = Store::all();
+        $posts = Post::all()->sortByDesc('created_at');
+        return view('items.show', compact('item', 'stores', 'posts'));
     }
 
     /**

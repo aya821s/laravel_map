@@ -7,6 +7,7 @@ use App\Http\Controllers\WebController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\FavoriteController;
 
 Route::get('/',  [WebController::class, 'index'])->name('top');
 
@@ -14,6 +15,8 @@ Route::controller(UserController::class)->group(function () {
     Route::get('users/mypage', 'mypage')->name('mypage');
     Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
     Route::put('users/mypage', 'update')->name('mypage.update');
+    Route::get('users/delete', 'delete')->name('users.delete');
+    Route::delete('users/delete', 'destroy')->name('mypage.destroy');
 });
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');

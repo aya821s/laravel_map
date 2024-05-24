@@ -1,6 +1,6 @@
 <div>
     <h1>会員情報の編集</h1>
-    <form method="POST" action="{{ route('mypage') }}">
+    <form method="POST" action="{{ route('mypage') }}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="_method" value="PUT">
         <div class="form-group">
@@ -43,6 +43,11 @@
                 </span>
                 @enderror
             </div>
+        </div>
+
+        <div>
+            <label for="description">画像</label>
+            <input name="image" type="file">
         </div>
 
         <button type="submit">
