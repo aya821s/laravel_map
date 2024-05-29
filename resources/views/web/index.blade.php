@@ -8,4 +8,7 @@
     <a href="{{ route('stores.index') }}">（店舗一覧）</a>
     <br>
     <a href="{{ route('posts.index') }}">（投稿一覧）</a>
+
+    <br>
+    <a href="{{ route('admin.login') }}">管理画面にログイン</a>
 </div>

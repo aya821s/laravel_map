@@ -8,7 +8,7 @@
                 <label for="name">氏名</label>
             </div>
             <div>
-                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus placeholder="侍 太郎">
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
                 @error('name')
                 <span class="invalid-feedback" role="alert">
                     <strong>氏名を入力してください</strong>
@@ -22,7 +22,7 @@
                 <label for="email">メールアドレス</label>
             </div>
             <div>
-                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email" autofocus placeholder="samurai@samurai.com">
+                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email" autofocus>
                 @error('email')
                 <span class="invalid-feedback" role="alert">
                     <strong>メールアドレスを入力してください</strong>

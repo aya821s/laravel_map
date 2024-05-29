@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\PostController;
@@ -43,3 +44,32 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin'], function () {
+    Route::get('home', [Admin\HomeController::class, 'index'])->name('home');
+
+    Route::get('users/index', [Admin\UserController::class, 'index'])->name('users.index');
+    Route::get('users/show/{user}', [Admin\UserController::class, 'show'])->name('users.show');
+    Route::delete('users/delete', [Admin\UserController::class, 'destroy'])->name('users.destroy');
+
+    Route::get('stores/index', [Admin\StoreController::class, 'index'])->name('stores.index');
+    Route::get('stores/show/{store}', [Admin\StoreController::class, 'show'])->name('stores.show');
+    Route::get('stores/create', [Admin\StoreController::class, 'create'])->name('stores.create');
+    Route::post('stores/index', [Admin\StoreController::class, 'store'])->name('stores.store');
+    Route::get('stores/edit/{store}', [Admin\StoreController::class, 'edit'])->name('stores.edit');
+    Route::patch('stores/show/{store}', [Admin\StoreController::class, 'update'])->name('stores.update');
+    Route::get('stores/delete', [Admin\StoreController::class, 'delete'])->name('stores.delete');
+    Route::delete('stores/delete', [Admin\StoreController::class, 'destroy'])->name('stores.destroy');
+
+    Route::get('items/index', [Admin\ItemController::class, 'index'])->name('items.index');
+    Route::post('items/index', [Admin\ItemController::class, 'store'])->name('items.store');
+    Route::get('/items/edit/{item}', [Admin\ItemController::class, 'edit'])->name('items.edit');
+    Route::patch('/items/index/{item}', [Admin\ItemController::class, 'update'])->name('items.update');
+    Route::delete('items/index/{item}', [Admin\ItemController::class, 'destroy'])->name('items.destroy');
+
+    Route::get('posts/index', [Admin\PostController::class, 'index'])->name('posts.index');
+    Route::get('/posts/edit/{post}', [Admin\PostController::class, 'edit'])->name('posts.edit');
+    Route::patch('/posts/index/{post}', [Admin\PostController::class, 'update'])->name('posts.update');
+    Route::delete('posts/index/{post}', [Admin\PostController::class, 'destroy'])->name('posts.destroy');
+
+});
