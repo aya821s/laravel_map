@@ -19,6 +19,7 @@ Route::controller(UserController::class)->group(function () {
     Route::put('users/mypage', 'update')->name('mypage.update');
     Route::get('users/delete', 'delete')->name('users.delete');
     Route::delete('users/delete', 'destroy')->name('mypage.destroy');
+    Route::get('users/favorite', 'favorite')->name('users.favorite');
 });
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
@@ -33,10 +34,11 @@ Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
 Route::post('items/', [ItemController::class, 'store'])->name('items.store');
 Route::get('/items/follow', [ItemController::class, 'follow'])->name('items.follow');
 
-
 Route::post('follows/{item_id}', [FollowController::class, 'store'])->name('follows.store');
 Route::delete('follows/{item_id}', [FollowController::class, 'destroy'])->name('follows.destroy');
 
+Route::post('favorites/{post_id}', [FavoriteController::class, 'store'])->name('favorite.store');
+Route::delete('favorites/{post_id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
 
 
 

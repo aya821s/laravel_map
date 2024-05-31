@@ -11,14 +11,12 @@ class UserController extends Controller
     public function mypage()
      {
          $user = Auth::user();
-
          return view('users.mypage', compact('user'));
      }
 
      public function edit(User $user)
     {
          $user = Auth::user();
-
          return view('users.edit', compact('user'));
     }
 
@@ -36,14 +34,19 @@ class UserController extends Controller
          }
 
          $user->update();
-
          return to_route('mypage')->with('flash_message', 'マイページを編集しました。');
     }
+
+    public function favorite()
+     {
+         $user = Auth::user();
+         $favorite_posts = $user->favorite_posts;
+         return view('users.favorite', compact('favorite_posts'));
+     }
 
     public function delete(Request $request)
      {
         $user = Auth::user();
-
         return view('users.delete', compact('user'));
      }
 

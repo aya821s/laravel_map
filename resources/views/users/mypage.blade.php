@@ -43,6 +43,10 @@
     </div>
 
     <div>
+        <a href="{{ route('users.favorite') }}">お気に入り投稿一覧</a>
+    </div>
+
+    <div>
         <a href="{{ route('users.delete') }}">アカウント削除</a>
     </div>
 </div>

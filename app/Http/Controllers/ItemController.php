@@ -36,9 +36,7 @@ class ItemController extends Controller
      public function follow()
      {
          $user = Auth::user();
-
          $follow_items = $user->follow_items;
-
          return view('items.follow', compact('follow_items'));
      }
 
