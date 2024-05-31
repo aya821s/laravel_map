@@ -8,6 +8,7 @@ use App\Http\Controllers\WebController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\FavoriteController;
 
 Route::get('/',  [WebController::class, 'index'])->name('top');
@@ -29,6 +30,12 @@ Route::get('/store/{store}', [StoreController::class, 'show'])->name('stores.sho
 
 Route::get('/items', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
+Route::post('items/', [ItemController::class, 'store'])->name('items.store');
+Route::get('/items/follow', [ItemController::class, 'follow'])->name('items.follow');
+
+
+Route::post('follows/{item_id}', [FollowController::class, 'store'])->name('follows.store');
+Route::delete('follows/{item_id}', [FollowController::class, 'destroy'])->name('follows.destroy');
 
 
 

@@ -6,14 +6,11 @@ use App\Models\Item;
 use App\Models\Store;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
     public function index(Request $request)
     {
         $items = Item::all();
@@ -27,43 +24,22 @@ class ItemController extends Controller
         return view('items.show', compact('item', 'stores', 'posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
-    {
-        //
-    }
+     {
+         $post = new Item();
+         $post->name = $request->input('name');
+         $post->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Item $item)
-    {
-        //
-    }
+         return redirect()->route('items.index')->with('flash_message', '食材を追加しました。');
+     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Item $item)
-    {
-        //
-    }
+     public function follow()
+     {
+         $user = Auth::user();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Item $item)
-    {
-        //
+         $follow_items = $user->follow_items;
+
+         return view('items.follow', compact('follow_items'));
+     }
+
     }
-}

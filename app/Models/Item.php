@@ -13,7 +13,7 @@ class Item extends Model
         return $this->belongsToMany(Store::class)->withTimestamps();
     }
 
-    public function follower_users() {
+    public function followed_users() {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

@@ -39,6 +39,10 @@
     </div>
 
     <div>
+        <a href="{{ route('items.follow') }}">フォロー食材一覧</a>
+    </div>
+
+    <div>
         <a href="{{ route('users.delete') }}">アカウント削除</a>
     </div>
 </div>
