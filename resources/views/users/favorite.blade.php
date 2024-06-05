@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 @if (session('flash_message'))
         <div role="alert">
              <p>{{ session('flash_message') }}</p>
@@ -33,3 +36,4 @@
         <hr>
     @endforeach
 @endif
+@endsection

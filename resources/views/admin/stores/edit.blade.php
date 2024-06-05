@@ -1,4 +1,6 @@
-<div>
+@extends('layouts.app')
+
+@section('content')
     <h1>店舗情報の編集</h1>
     <form method="POST" action="{{ route('admin.stores.update', $store) }}" enctype="multipart/form-data">
         @csrf
@@ -82,4 +84,4 @@
             保存
         </button>
     </form>
-</div>
+@endsection

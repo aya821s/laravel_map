@@ -37,10 +37,10 @@ Route::middleware(['guest', 'guest:admin'])->group(function () {
 });
 
 Route::middleware('guest:admin')->group(function () {
-    Route::get('admin/login', [Admin\Auth\AuthenticatedSessionController::class, 'create'])
+    Route::get('admin/auth/login', [Admin\Auth\AuthenticatedSessionController::class, 'create'])
                 ->name('admin.login');
 
-    Route::post('admin/login', [Admin\Auth\AuthenticatedSessionController::class, 'store']);
+    Route::post('admin/auth/login', [Admin\Auth\AuthenticatedSessionController::class, 'store']);
 });
 
 Route::middleware('auth')->group(function () {

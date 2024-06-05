@@ -1,4 +1,6 @@
-<div>
+@extends('layouts.app')
+
+@section('content')
     <div>
     <form action="{{ route('admin.users.index') }}" method="GET">
         <input class="form-control" name="keyword">
@@ -34,4 +36,4 @@
         Sort By
         @sortablelink('id', 'ID')
     </div>
-</div>
+@endsection

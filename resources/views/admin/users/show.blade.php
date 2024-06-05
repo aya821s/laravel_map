@@ -1,4 +1,6 @@
-<div>
+@extends('layouts.app')
+
+@section('content')
     @if (session('flash_message'))
         <div class="alert alert-warning" role="alert">
             <p class="mb-0">{{ session('flash_message') }}</p>
@@ -42,4 +44,4 @@
             <button type="submit" >削除</button>
         </form>
     </div>
-</div>
+@endsection

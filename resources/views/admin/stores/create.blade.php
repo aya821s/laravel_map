@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <h1>新規登録</h1>
     @if ($errors->any())
         <ul>
@@ -74,3 +77,4 @@
             保存
         </button>
     </form>
+@endsection

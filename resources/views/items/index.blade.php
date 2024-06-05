@@ -1,4 +1,6 @@
-<div>
+@extends('layouts.app')
+
+@section('content')
     <h1>食材一覧</h1>
     <form action="{{ route('items.store') }}" method="POST">
         @csrf
@@ -26,4 +28,4 @@
 
         </div>
     @endforeach
-</div>
+@endsection

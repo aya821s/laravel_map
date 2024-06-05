@@ -1,4 +1,6 @@
-<div>
+@extends('layouts.app')
+
+@section('content')
     <h1>会員情報の編集</h1>
     <form method="POST" action="{{ route('mypage') }}" enctype="multipart/form-data">
         @csrf
@@ -54,4 +56,4 @@
             保存
         </button>
     </form>
-</div>
+@endsection

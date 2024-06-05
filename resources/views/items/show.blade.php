@@ -1,5 +1,6 @@
-<!doctype html>
-<html lang="en">
+@extends('layouts.app')
+
+@section('content')
 <head>
     <meta charset="utf-8" />
     <title>Add custom markers in Mapbox GL JS</title>
@@ -127,3 +128,4 @@
         </div>
     @endforeach
     --}}
+@endsection

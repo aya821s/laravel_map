@@ -1,4 +1,6 @@
-<div>
+@extends('layouts.app')
+
+@section('content')
     <h1>食材一覧</h1>
 
     <form action="{{ route('admin.items.store') }}" method="POST">
@@ -22,4 +24,4 @@
             </form>
         </div>
     @endforeach
-</div>
+@endsection

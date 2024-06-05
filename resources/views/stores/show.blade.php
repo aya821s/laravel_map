@@ -1,4 +1,6 @@
-<div>
+@extends('layouts.app')
+
+@section('content')
     <h1> {{$store->name}}</h1>
 
     @if ($store->image !== "")
@@ -55,4 +57,4 @@
             </span>
         </div>
     </div>
-</div>
+@endsection

@@ -1,52 +1,54 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('layouts.app')
 
-        <!-- Name -->
-        <div>
-            <label for="name">名前（必須）</label>
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+@section('content')
+    <div class="auth-container">
+        <h1 class="text-center">新規会員登録</h1>
+        @if ($errors->any())
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            </div>
+        @endif
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <label for="email">メールアドレス（必須）</label>
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-        <!-- Password -->
-        <div class="mt-4">
-            <label for="password">パスワード（必須）</label>
+            <!-- Name -->
+            <div class="py-1">
+                <label for="name">氏名（必須）</label>
+                <input class="form-control" type="text" id="name" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="価格 太郎">
+            </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            <!-- Email Address -->
+            <div class="py-1">
+                <label for="email">メールアドレス（必須）</label>
+                <input class="form-control" type="email" id="email" name="email" :value="old('email')" required autocomplete="email" placeholder="taro.kakaku@example.com" />
+            </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <!-- Password -->
+            <div class="py-1">
+                <label for="password">パスワード（必須）</label>
+                <input class="form-control"  id="password" type="password" name="password" required autocomplete="new-password">
+            </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <label for="password_confirmation">パスワードを再入力（必須）</label>
+            <!-- Confirm Password -->
+            <div class="py-1">
+                <label for="password_confirmation">パスワードを再入力（必須）</label>
+                <input class="form-control" id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password">
+            </div>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+            <!-- Already Registered -->
+            <div class="auth-contents py-1">
+                <a class="green-links" href="{{ route('login') }}">すでに登録済みの方はこちら</a>
+            </div>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('すでに登録済みの方はこちら') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('登録') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+            <!-- Register -->
+            <div class="py-1">
+                <button type="submit" class="btn text-white w-100 green-btn">登録</button>
+            </div>
+        </form>
+    </div>
+@endsection

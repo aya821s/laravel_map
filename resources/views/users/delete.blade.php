@@ -1,4 +1,6 @@
-<div class="container500">
+@extends('layouts.app')
+
+@section('content')
     <div>
         <a href="{{ route('top') }}">トップ</a> > <a href="{{ route('mypage') }}">マイページ</a> > アカウント削除
     </div>
@@ -11,4 +13,4 @@
             <button type="submit" >退会する</button>
         </form>
     </div>
-</div>
+@endsection

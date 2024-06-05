@@ -1,4 +1,6 @@
-<div>
+@extends('layouts.app')
+
+@section('content')
     <h1>新規投稿</h1>
     @if ($errors->any())
         <ul>
@@ -33,4 +35,4 @@
         <br>
         <button type="submit">投稿</button>
     </form>
-</div>
+@endsection

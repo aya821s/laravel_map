@@ -1,4 +1,6 @@
-<div>
+@extends('layouts.app')
+
+@section('content')
     <h1>マイページ</h1>
     @if (session('flash_message'))
         <div class="alert alert-warning" role="alert">
@@ -14,7 +16,7 @@
 
     <div>
         @if ($user->image !== "")
-            <img src="{{ asset('/storage/user_images/'. $user->image) }}" style="width: 250;">
+            <img src="{{ asset('/storage/user_images/'. $user->image) }}" style="height: 100;">
         @endif
         <div>
             <span>氏名</span>
@@ -49,4 +51,4 @@
     <div>
         <a href="{{ route('users.delete') }}">アカウント削除</a>
     </div>
-</div>
+@endsection
