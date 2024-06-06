@@ -15,35 +15,40 @@
       rel="stylesheet"
     />
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
+        body {
+          margin: 0;
+          padding: 0;
+          position: relative;
+        }
 
-      #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 70%;
-        height: 70%;
-      }
+        #map {
+          position: absolute;
+          top: 60px;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+        }
 
-      .marker {
-        background-image: url('../../../laravel-map/public/storage/mapbox-icon.png');
-        background-size: cover;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        cursor: pointer;
-     }
-
-    </style>
+        .marker {
+          background-image: url('../../../laravel-map/public/storage/mapbox-icon.png');
+          background-size: cover;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          cursor: pointer;
+       }
+      </style>
 </head>
 <body>
     <div id="map"></div>
+    @php
+    $store_json = json_encode($stores);
+    //echo $store_json;
+    @endphp
 
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiYXlhODIxIiwiYSI6ImNsd2lvaGJrOTAwOTYybXJ5cm03YWp2b2MifQ.FZRb0fWgupxl2fsvEPn_pA';
+        const stores = JSON.parse('<?php echo $store_json; ?>');
 
         const map = new mapboxgl.Map({
             container: 'map',
@@ -52,32 +57,26 @@
             zoom: 15
         });
 
-        const geojson = {
-            type: 'FeatureCollection',
-            features: [
-                {
+        const features = [];
+        for(let i = 0; i < stores.length; i++) {
+            const store = stores[i];
+            const feature = {
                 type: 'Feature',
                 geometry: {
-                type: 'Point',
-                coordinates: [135.48657974, 34.67311029]
+                    type: 'Point',
+                    coordinates: [store.longitude, store.latitude]
                 },
                 properties: {
-                title: 'Mapbox',
-                description: 'Kohyo'
+                    title: 'Mapbox',
+                    description: store.name
                 }
-            },
-            {
-            type: 'Feature',
-                geometry: {
-                type: 'Point',
-                coordinates: [135.48626197, 34.67073859]
-                },
-                properties: {
-                title: 'Mapbox',
-                description: 'Kansu'
-                }
-            }
-            ]
+            };
+            features.push(feature);
+        }
+
+        const geojson = {
+            type: 'FeatureCollection',
+            features: features
         }
 
         for (const feature of geojson.features) {
