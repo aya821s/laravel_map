@@ -23,53 +23,48 @@
 
         #map {
           position: absolute;
-          top: 60px;
+          top: 200px;
           bottom: 0;
-          width: 100%;
-          height: 100%;
+          width: 50%;
+          height: 50%;
         }
-
-        .marker {
-          background-image: url('../../../laravel-map/public/storage/mapbox-icon.png');
-          background-size: cover;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          cursor: pointer;
-       }
-      </style>
+    </style>
 </head>
 <body>
+    <style>
+        .marker {
+            display: block;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+        }
+    </style>
+
     <div id="map"></div>
     @php
-    $store_json = json_encode($stores);
-    //echo $store_json;
+        $store_json = json_encode($stores);
     @endphp
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiYXlhODIxIiwiYSI6ImNsd2lvaGJrOTAwOTYybXJ5cm03YWp2b2MifQ.FZRb0fWgupxl2fsvEPn_pA';
         const stores = JSON.parse('<?php echo $store_json; ?>');
-
-        const map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/aya821/clwt63wof011v01pp4xq8dixe',
-            center: [135.487196, 34.673307],
-            zoom: 15
-        });
 
         const features = [];
         for(let i = 0; i < stores.length; i++) {
             const store = stores[i];
             const feature = {
                 type: 'Feature',
+                properties: {
+                        message: store.name,
+                        imageId: store.image,
+                        iconSize: [60, 60]
+                    },
                 geometry: {
                     type: 'Point',
                     coordinates: [store.longitude, store.latitude]
                 },
-                properties: {
-                    title: 'Mapbox',
-                    description: store.name
-                }
             };
             features.push(feature);
         }
@@ -79,52 +74,59 @@
             features: features
         }
 
-        for (const feature of geojson.features) {
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/aya821/clwt63wof011v01pp4xq8dixe',
+            center: [135.487196, 34.673307],
+            zoom: 15
+        });
+
+        // Add markers to the map.
+        for (const marker of geojson.features) {
+            // Create a DOM element for each marker.
             const el = document.createElement('div');
+            const width = marker.properties.iconSize[0];
+            const height = marker.properties.iconSize[1];
             el.className = 'marker';
-            new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
-        };
+            //el.style.backgroundImage = `url(https://picsum.photos/id/${marker.properties.imageId}/${width}/${height})`;//
+            el.style.backgroundImage = 'url(../../../laravel-map/public/storage/mapbox-icon.png/${width}/${height})`;)';
+            el.style.width = `${width}px`;
+            el.style.height = `${height}px`;
+            el.style.backgroundSize = '100%';
+
+            el.addEventListener('click', () => {
+                // モーダルにお店の情報をセット
+                $('#storeName').text(marker.properties.message);
+                $('#storeImage').attr('src', `../../../laravel-map/public/storage/mapbox-icon.png/${width}/${height}`);
+                $('#storeDescription').text(marker.properties.description);
+                // モーダルを表示
+                $('#storeModal').modal('show');
+            });
+
+            // Add markers to the map.
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .addTo(map);
+        }
     </script>
+
+    <!-- modal -->
+    <div class="modal fade" id="storeModal" tabindex="-1" aria-labelledby="storeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="storeModalLabel">店舗情報</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="storeName"></p>
+                    <p id="storeDescription"></p>
+                    <img id="storeImage" src="" alt="店舗の画像" style="width: 100%;">
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
-
-
-{{--
-
-    @foreach($stores as $store)
-        <div>
-            <a href="{{ route('stores.show', $store) }}"><h2>{{$store->name}}</h2></a>
-        </div>
-        <div>
-            @foreach($posts as $post)
-                @if  ($post->item_store_id == $store->id)
-                    <div style="background: lightgrey;">
-                    @if ($post->is_soldout == 1)
-                        <p style="color: red;">売り切れです！</p>
-                    @endif
-
-                    <h2>{{ $post->price }}円</h2>
-
-
-                    @if ($post->image !== "")
-                        <img src="{{ asset('/storage/post_images/'. $post->image) }}" id="image">
-                    @endif
-
-
-                    <p>{{ $post->description }}</p>
-
-                    <p>{{ $post->created_at}}</p>
-
-                    @if ($post->is_anonymous !== 1)
-                        <p>by 匿名ユーザー</p>
-                    @else
-                        <p>by {{ $post->user->name }}</p>
-                    @endif
-                    </div>
-                @endif
-            @endforeach
-            <hr>
-        </div>
-    @endforeach
-    --}}
 @endsection
