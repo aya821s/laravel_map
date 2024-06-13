@@ -19,7 +19,7 @@
             <span>{{ $store->id }}</span>
         </div>
         @if ($store->image !== "")
-            <img src="{{ asset('/storage/user_images/'. $user->image) }}" style="width: 250;">
+            <img src="{{ asset('/storage/store_images/'. $store->image) }}" style="width: 250;">
         @endif
         <div>
             <span>店舗名</span>

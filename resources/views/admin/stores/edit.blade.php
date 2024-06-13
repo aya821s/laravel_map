@@ -5,7 +5,6 @@
     <form method="POST" action="{{ route('admin.stores.update', $store) }}" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
-        <input type="hidden" name="_method" value="PUT">
         <div class="form-group">
             <div>
                 <label for="name">店舗名</label>

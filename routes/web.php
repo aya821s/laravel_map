@@ -40,8 +40,6 @@ Route::delete('follows/{item_id}', [FollowController::class, 'destroy'])->name('
 Route::post('favorites/{post_id}', [FavoriteController::class, 'store'])->name('favorite.store');
 Route::delete('favorites/{post_id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
 
-
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -73,7 +71,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::get('items/index', [Admin\ItemController::class, 'index'])->name('items.index');
     Route::post('items/index', [Admin\ItemController::class, 'store'])->name('items.store');
     Route::get('/items/edit/{item}', [Admin\ItemController::class, 'edit'])->name('items.edit');
-    Route::patch('/items/index/{item}', [Admin\ItemController::class, 'update'])->name('items.update');
+    Route::put('/items/index/{item}', [Admin\ItemController::class, 'update'])->name('items.update');
     Route::delete('items/index/{item}', [Admin\ItemController::class, 'destroy'])->name('items.destroy');
 
     Route::get('posts/index', [Admin\PostController::class, 'index'])->name('posts.index');
