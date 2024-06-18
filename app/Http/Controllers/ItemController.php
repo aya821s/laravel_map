@@ -20,6 +20,7 @@ class ItemController extends Controller
     public function show(Item $item)
     {
         $stores = Store::all();
+        //dd($stores);
         $posts = Post::all()->sortByDesc('created_at');
         return view('items.show', compact('item', 'stores', 'posts'));
     }

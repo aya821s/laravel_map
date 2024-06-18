@@ -23,10 +23,10 @@
 
         #map {
           position: absolute;
-          top: 200px;
+          top: 100px;
           bottom: 0;
-          width: 50%;
-          height: 50%;
+          width: 80%;
+          height: 80%;
         }
     </style>
 </head>
@@ -57,8 +57,16 @@
             const feature = {
                 type: 'Feature',
                 properties: {
-                        message: store.name,
+                        name: store.name,
+                        description: store.description,
                         imageId: store.image,
+                        openingTime: store.opening_time,
+                        closingTime: store.closing_time,
+                        postalCode: store.postal_code,
+                        address: store.address,
+                        phoneNumber: store.phone_number,
+                        holidays: store.holidays,
+                        homepage: store.homepage,
                         iconSize: [60, 60]
                     },
                 geometry: {
@@ -78,7 +86,7 @@
             container: 'map',
             style: 'mapbox://styles/aya821/clwt63wof011v01pp4xq8dixe',
             center: [135.487196, 34.673307],
-            zoom: 15
+            zoom: 14
         });
 
         // Add markers to the map.
@@ -88,20 +96,28 @@
             const width = marker.properties.iconSize[0];
             const height = marker.properties.iconSize[1];
             el.className = 'marker';
-            //el.style.backgroundImage = `url(https://picsum.photos/id/${marker.properties.imageId}/${width}/${height})`;//
-            el.style.backgroundImage = 'url(../../../laravel-map/public/storage/mapbox-icon.png/${width}/${height})`;)';
+            el.style.backgroundImage = 'url(../../../laravel-map/public/storage/store_images/${marker.properties.imageId}/${width}/${height})`;)';
             el.style.width = `${width}px`;
             el.style.height = `${height}px`;
             el.style.backgroundSize = '100%';
 
             el.addEventListener('click', () => {
-                // モーダルにお店の情報をセット
-                $('#storeName').text(marker.properties.message);
-                $('#storeImage').attr('src', `../../../laravel-map/public/storage/mapbox-icon.png/${width}/${height}`);
+                // モーダルにお店の情報をセットjQuery
+                $('#storeName').text(marker.properties.name);
+                $('#storeImage').attr('src', `../../../laravel-map/public/storage/store_images/${marker.properties.imageId}`);
                 $('#storeDescription').text(marker.properties.description);
+                $('#storeHours').text(`営業時間 ${marker.properties.openingTime}～${marker.properties.closingTime}`);
+                $('#storeAddress').text(`住所 〒${marker.properties.postalCode.slice(0, 3)}-${marker.properties.postalCode.slice(3)} ${marker.properties.address}`);
+                $('#storePhone').text(`電話番号 ${marker.properties.phoneNumber}`);
+                $('#storeHolidays').text(`定休日 ${marker.properties.holidays}`);
+                $('#storeHomepage').html(`ホームページ <a href="${marker.properties.homepage}" target="_blank">${marker.properties.homepage}</a>`);
                 // モーダルを表示
                 $('#storeModal').modal('show');
             });
+
+
+
+
 
             // Add markers to the map.
             new mapboxgl.Marker(el)
@@ -115,15 +131,20 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="storeModalLabel">店舗情報</h5>
+                    <h5 id="storeName"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p id="storeName"></p>
+                    <img id="storeImage" src="" alt="店舗の画像">
                     <p id="storeDescription"></p>
-                    <img id="storeImage" src="" alt="店舗の画像" style="width: 100%;">
+                    <p id="storeHours"></p>
+                    <p id="storeAddress"></p>
+                    <p id="storePhone"></p>
+                    <p id="storeHolidays"></p>
+                    <p id="storeHomepage"></p>
+
                 </div>
             </div>
         </div>

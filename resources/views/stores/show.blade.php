@@ -4,7 +4,8 @@
     <h1> {{$store->name}}</h1>
 
     @if ($store->image !== "")
-        <img src="{{ asset($store->image) }}" width="200" height="150">
+        <img src="{{ asset('/storage/store_images/'. $store->image) }}" width="200">
+
     @endif
 
     <div>

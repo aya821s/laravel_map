@@ -14,7 +14,11 @@ class Store extends Model
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Sortable;
     protected $dates = ['deleted_at'];
 
-    public function item_stores() {
-        return $this->belongsToMany(Item::class)->withTimestamps();
+    // public function items() {
+    //     return $this->belongsToMany(Item::class)->withTimestamps();
+    // }
+
+    public function posts() {
+        return $this->hasMany(Post::class);
     }
 }
