@@ -115,36 +115,103 @@
                 $('#storeModal').modal('show');
             });
 
-
-
-
-
             // Add markers to the map.
             new mapboxgl.Marker(el)
                 .setLngLat(marker.geometry.coordinates)
                 .addTo(map);
         }
+
+        $('#reviewForm').submit(function(event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: '/reviews', // ルートに応じて実際のURLを指定
+                data: formData,
+                success: function(response) {
+                    // 口コミを追加して、リストを更新する処理
+                    $('#reviewsList').prepend(`
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <p>${response.comment}</p>
+                                <p>投稿日時: ${response.created_at}</p>
+                            </div>
+                        </div>
+                    `);
+                    $('#reviewForm')[0].reset(); // フォームをリセット
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
     </script>
 
     <!-- modal -->
     <div class="modal fade" id="storeModal" tabindex="-1" aria-labelledby="storeModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-fluid">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="storeName"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
-                <div class="modal-body">
-                    <img id="storeImage" src="" alt="店舗の画像">
-                    <p id="storeDescription"></p>
-                    <p id="storeHours"></p>
-                    <p id="storeAddress"></p>
-                    <p id="storePhone"></p>
-                    <p id="storeHolidays"></p>
-                    <p id="storeHomepage"></p>
-
+                <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a href="#post" class="nav-link active text-secondary" id="detail-tab" data-bs-toggle="tab" role="tab" aria-controls="post" aria-selected="true">
+                        口コミ投稿
+                      </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a href="#posts" class="nav-link text-secondary" id="menu-tab" data-bs-toggle="tab" role="tab" aria-controls="posts" aria-selected="false">
+                       口コミ一覧
+                      </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a href="#store" class="nav-link text-secondary" id="campaign-tab" data-bs-toggle="tab" role="tab" aria-controls="store" aria-selected="false">
+                        店舗情報
+                      </a>
+                    </li>
+                </ul>
+                <div class="tab-content px-3" id="myTabContent">
+                    <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="detail-tab">
+                        <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="py-1 postform">
+                                <label for="price">価格</label>
+                                <input class="form-control" id="price" name="price" type="price">
+                            </div>
+                            <div class="py-2">
+                                <input id="is_soldout" name="is_soldout" type="checkbox" value=1>
+                                <label for="is_soldout">売り切れてました</label>
+                            </div>
+                            <div class="py-1 postform">
+                                <label for="description">コメント</label>
+                                <textarea class="form-control" id="description" name="description"></textarea>
+                            </div>
+                            <div class="py-1">
+                                <label for="description">画像</label>
+                                <input name="image" type="file">
+                            </div>
+                            <div class="py-2">
+                                <input id="is_anonymous" name="is_anonymous" type="checkbox" value=1>
+                                <label for="is_anonymous">匿名にしない</label>
+                            </div>
+                            <button class="btn green-btn" type="submit">投稿</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="posts" role="tabpanel"  aria-labelledby="posts-tab">
+                        <h5>口コミ一覧</h5>
+                    </div>
+                    <div class="tab-pane fade" id="store" role="tabpanel" aria-labelledby="store-tab">
+                        <div>
+                            <img id="storeImage" src="" alt="店舗の画像">
+                            <p id="storeDescription"></p>
+                            <p id="storeHours"></p>
+                            <p id="storeAddress"></p>
+                            <p id="storePhone"></p>
+                            <p id="storeHolidays"></p>
+                            <p id="storeHomepage"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

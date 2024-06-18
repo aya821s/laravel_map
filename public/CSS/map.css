@@ -100,6 +100,22 @@ body {
     cursor: pointer;
 }
 
+.modal-dialog-fluid {
+    max-width: inherit;
+    position: absolute;
+    width: 85%;
+    margin: 60px 0 auto auto;
+    transition: transform 0.3s ease;
+}
+
+.modal-content {
+    min-height: 500px;
+}
+
+.postform {
+    width: 400px;
+}
+
 @media screen and (min-width: 1400px) {
     .main-container {
         max-width: 1200px;
