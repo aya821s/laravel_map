@@ -31,6 +31,7 @@
     </style>
 </head>
 <body>
+    <h1>{{ $item->name }}の価格マップ</h1>
     <style>
         .marker {
             display: block;
