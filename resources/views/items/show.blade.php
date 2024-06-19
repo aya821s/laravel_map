@@ -58,6 +58,7 @@
             const feature = {
                 type: 'Feature',
                 properties: {
+                        id: store.id,
                         name: store.name,
                         description: store.description,
                         imageId: store.image,
@@ -104,6 +105,7 @@
 
             el.addEventListener('click', () => {
                 // モーダルにお店の情報をセットjQuery
+                $('#storeId').val(marker.properties.id);
                 $('#storeName').text(marker.properties.name);
                 $('#storeImage').attr('src', `../../../laravel-map/public/storage/store_images/${marker.properties.imageId}`);
                 $('#storeDescription').text(marker.properties.description);
@@ -176,6 +178,8 @@
                     <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="detail-tab">
                         <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            <input id="storeId" type="hidden" name="store_id" value="">
+                            <input type="hidden" name="item_id" value="<?php echo $item->id ?>">
                             <div class="py-1 postform">
                                 <label for="price">価格</label>
                                 <input class="form-control" id="price" name="price" type="price">

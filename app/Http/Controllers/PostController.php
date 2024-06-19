@@ -24,6 +24,8 @@ class PostController extends Controller
      {
          $post = new Post();
          $post->price = $request->input('price');
+         $post->store_id = $request->input('store_id');
+         $post->item_id = $request->input('item_id');
          $post->description = $request->input('description');
          $post->is_soldout = $request->input('is_soldout');
          $post->is_anonymous = $request->input('is_anonymous');
