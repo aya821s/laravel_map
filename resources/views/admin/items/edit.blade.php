@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="text-center d-block mx-auto admin-items">
+<div class="col-10 text-center d-block mx-auto">
     @if ($item->image !== "")
         <img class="d-block mx-auto my-3" src="{{ asset('/storage/item_images/'. $item->image) }}" style="height: 200;">
     @endif

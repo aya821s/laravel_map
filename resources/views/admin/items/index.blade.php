@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="col-10">
     <h1>食材一覧</h1>
 
     <form action="{{ route('admin.items.store') }}" method="POST">
@@ -13,7 +14,7 @@
                 <input class="form-control" name="image" type="file">
             </div>
             <div class="col-2">
-                <button class="btn unfollow-btn" type="submit">新規登録</button>
+                <button class="btn unfollow-btn" type="submit">登録</button>
             </div>
         </div>
     </form>
@@ -46,4 +47,5 @@
     @endforeach
     </tbody>
     </table>
+</div>
 @endsection

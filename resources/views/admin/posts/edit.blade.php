@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="col-10">
     <h1>投稿編集</h1>
     @if ($errors->any())
         <ul>
@@ -34,6 +35,7 @@
             <input id="is_anonymous" name="is_anonymous" type="checkbox" value=1  value="{{ old('is_anonymous', $post->is_anonymous) }}">
         </div>
         <br>
-        <button type="submit">編集</button>
+        <button type="submit" class="btn">編集</button>
     </form>
+</div>
 @endsection

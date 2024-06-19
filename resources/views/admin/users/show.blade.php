@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="col-10">
     @if (session('flash_message'))
         <div class="alert alert-warning" role="alert">
             <p class="mb-0">{{ session('flash_message') }}</p>
@@ -38,10 +39,11 @@
                 @endif
             </span>
         </div>
-        <form class="text-center" method="POST" action="{{ route('admin.users.destroy') }}" onsubmit="return confirm('本当に削除しますか？');">
+        <form method="POST" action="{{ route('admin.users.destroy') }}" onsubmit="return confirm('本当に削除しますか？');">
             @csrf
             <input type="hidden" name="_method" value="DELETE">
-            <button type="submit" >削除</button>
+            <button type="submit" class="btn" >削除</button>
         </form>
     </div>
+</div>
 @endsection

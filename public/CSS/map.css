@@ -19,6 +19,10 @@ h3 {
     font-size: 1.1rem;
 }
 
+.btn {
+    background-color: #5fb560;
+}
+
 .green-link {
     text-decoration: none;
     color: #389639;
@@ -37,6 +41,7 @@ h3 {
 main {
     min-height: calc(100vh - 116px);
     box-sizing: border-box;
+    padding: 10px 10%;
 }
 
 footer {
@@ -95,6 +100,7 @@ footer {
     width: 300px;
 }
 
+.btn:hover,
 .green-btn:hover,
 .follow-btn:hover,
 .unfollow-btn:hover {
@@ -138,10 +144,6 @@ body {
 
 .postform {
     width: 400px;
-}
-
-.admin-items {
-    width: 500px;
 }
 
 @media screen and (min-width: 1400px) {
