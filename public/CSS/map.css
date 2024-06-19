@@ -19,6 +19,11 @@ h3 {
     font-size: 1.1rem;
 }
 
+.green-link {
+    text-decoration: none;
+    color: #389639;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -62,20 +67,39 @@ footer {
     position: relative;
 }
 
+.follow-btn {
+    background-color: #a3d78e;
+    transition: 0.15s;
+    width: 70%;
+}
+
+.unfollow-btn {
+    background-color: #5fb560;
+    transition: 0.15s;
+    width: 70%;
+}
+
+.item-form {
+    width: 70%;
+    margin: auto;
+}
+
+.item-card {
+    background-color: #f9f9ec;
+    border-radius: 10px;
+    min-height: 200px;
+}
 .green-btn {
     background-color: #5fb560;
     transition: 0.15s;
     width: 300px;
 }
 
-.green-btn:hover {
+.green-btn:hover,
+.follow-btn:hover,
+.unfollow-btn:hover {
     background-color: #389639;
     transition: 0.15s;
-}
-
-.green-links {
-    color: #389639;
-    text-decoration: none;
 }
 
 body {
@@ -114,6 +138,10 @@ body {
 
 .postform {
     width: 400px;
+}
+
+.admin-items {
+    width: 500px;
 }
 
 @media screen and (min-width: 1400px) {

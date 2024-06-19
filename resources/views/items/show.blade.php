@@ -188,7 +188,7 @@
                                 <textarea class="form-control" id="description" name="description"></textarea>
                             </div>
                             <div class="py-1">
-                                <label for="description">画像</label>
+                                <label for="image">画像</label>
                                 <input name="image" type="file">
                             </div>
                             <div class="py-2">

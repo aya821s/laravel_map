@@ -16,9 +16,14 @@ class ItemController extends Controller
 
     public function store(Request $request)
      {
-         $post = new Item();
-         $post->name = $request->input('name');
-         $post->save();
+         $item = new Item();
+         $item->name = $request->input('name');
+
+         if ($request->hasFile('image')) {
+            $image_path = $request->file('image')->store('public/item_images');
+            $item->image = basename($image_path);
+         }
+         $item->save();
 
          return redirect()->route('admin.items.index')->with('flash_message', '食材を追加しました。');
      }
@@ -32,6 +37,10 @@ class ItemController extends Controller
      {
 
          $item->name = $request->input('name');
+         if ($request->hasFile('image')) {
+            $image_path = $request->file('image')->store('public/item_images');
+            $item->image = basename($image_path);
+         }
          $item->save();
 
          return redirect()->route('admin.items.index')->with('flash_message', '食材を編集しました。');

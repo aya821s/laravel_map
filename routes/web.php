@@ -71,7 +71,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::get('items/index', [Admin\ItemController::class, 'index'])->name('items.index');
     Route::post('items/index', [Admin\ItemController::class, 'store'])->name('items.store');
     Route::get('/items/edit/{item}', [Admin\ItemController::class, 'edit'])->name('items.edit');
-    Route::put('/items/index/{item}', [Admin\ItemController::class, 'update'])->name('items.update');
+    Route::patch('/items/index/{item}', [Admin\ItemController::class, 'update'])->name('items.update');
     Route::delete('items/index/{item}', [Admin\ItemController::class, 'destroy'])->name('items.destroy');
 
     Route::get('posts/index', [Admin\PostController::class, 'index'])->name('posts.index');

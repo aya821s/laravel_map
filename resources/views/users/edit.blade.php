@@ -48,7 +48,7 @@
         </div>
 
         <div>
-            <label for="description">画像</label>
+            <label for="image">画像</label>
             <input name="image" type="file">
         </div>
 
