@@ -46,6 +46,10 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{route('mypage')}}">マイページ</a>
+                            <a class="dropdown-item" href="{{route('mypage.edit')}}">マイページ編集</a>
+                            <a class="dropdown-item" href="{{ route('items.follow') }}">フォロー食材一覧</a>
+                            <a class="dropdown-item" href="{{ route('users.favorite') }}">お気に入り投稿一覧</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
