@@ -42,19 +42,28 @@
         }
     </style>
 
-    <div id="map"></div>
+   <div id="map"></div>
     @php
         $store_json = json_encode($stores);
+        $post_json = json_encode($posts);
     @endphp
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiYXlhODIxIiwiYSI6ImNsd2lvaGJrOTAwOTYybXJ5cm03YWp2b2MifQ.FZRb0fWgupxl2fsvEPn_pA';
         const stores = JSON.parse('<?php echo $store_json; ?>');
+        const posts = JSON.parse('<?php echo $post_json; ?>');
+        // console.log(posts);
 
         const features = [];
         for(let i = 0; i < stores.length; i++) {
             const store = stores[i];
+
+            const allPosts = Object.values(posts);
+            const storePosts = allPosts.filter(post => post.store_id === store.id);
+
+            // console.log(allPosts);
+
             const feature = {
                 type: 'Feature',
                 properties: {
@@ -69,7 +78,8 @@
                         phoneNumber: store.phone_number,
                         holidays: store.holidays,
                         homepage: store.homepage,
-                        iconSize: [60, 60]
+                        iconSize: [60, 60],
+                        posts: storePosts
                     },
                 geometry: {
                     type: 'Point',
@@ -114,6 +124,38 @@
                 $('#storePhone').text(`電話番号 ${marker.properties.phoneNumber}`);
                 $('#storeHolidays').text(`定休日 ${marker.properties.holidays}`);
                 $('#storeHomepage').html(`ホームページ <a href="${marker.properties.homepage}" target="_blank">${marker.properties.homepage}</a>`);
+                $('#postId').val(marker.properties.id);
+
+                var sortedPosts = marker.properties.posts.slice().sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+                var postsHtml = '';
+                $.each(sortedPosts, function(index, post) {
+                    var userName = post.is_anonymous !== 1 ? '匿名ユーザー' : post.user.name;
+                    var soldOut = post.is_soldout === 1 ? '売り切れです！' : '';
+
+                    const date = new Date(post.created_at);
+
+                    const y = date.getFullYear();
+                    const m= date.getMonth() + 1;
+                    const d = date.getDate();
+                    const h = date.getHours();
+                    const i = date.getMinutes();
+                    const dateString = y + '/' + m + '/' + d + ' ' + h + ':' + i;
+
+                    postsHtml += `
+                        <div class="card mb-3 p-2">
+                            <p class="soldout">${soldOut}</p>
+                            <p id="postPrice">${post.price}円</p>
+                            <p id="postDescription">${post.description}</p>
+                            ${post.image ? `<img id="postImage" src="../../../laravel-map/public/storage/post_images/${post.image}" alt="投稿された画像">` : ''}
+                            <p id="postCreatedAt">${dateString}</p>
+                            <p id="postUser">by ${userName}</p>
+                        </div>
+                    `;
+                });
+
+                $('#posts').html(postsHtml);
+
                 // モーダルを表示
                 $('#storeModal').modal('show');
             });
@@ -122,32 +164,7 @@
             new mapboxgl.Marker(el)
                 .setLngLat(marker.geometry.coordinates)
                 .addTo(map);
-        }
-
-        $('#reviewForm').submit(function(event) {
-            event.preventDefault();
-            var formData = $(this).serialize();
-            $.ajax({
-                type: 'POST',
-                url: '/reviews', // ルートに応じて実際のURLを指定
-                data: formData,
-                success: function(response) {
-                    // 口コミを追加して、リストを更新する処理
-                    $('#reviewsList').prepend(`
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <p>${response.comment}</p>
-                                <p>投稿日時: ${response.created_at}</p>
-                            </div>
-                        </div>
-                    `);
-                    $('#reviewForm')[0].reset(); // フォームをリセット
-                },
-                error: function(error) {
-                    console.log(error);
-                }
-            });
-        });
+        };
     </script>
 
     <!-- modal -->
@@ -168,6 +185,7 @@
                        口コミ一覧
                       </a>
                     </li>
+
                     <li class="nav-item" role="presentation">
                       <a href="#store" class="nav-link text-secondary" id="campaign-tab" data-bs-toggle="tab" role="tab" aria-controls="store" aria-selected="false">
                         店舗情報
@@ -203,8 +221,8 @@
                             <button class="btn green-btn" type="submit">投稿</button>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="posts" role="tabpanel"  aria-labelledby="posts-tab">
-                        <h5>口コミ一覧</h5>
+                    <div class="tab-pane fade" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+
                     </div>
                     <div class="tab-pane fade" id="store" role="tabpanel" aria-labelledby="store-tab">
                         <div>

@@ -21,7 +21,9 @@ class ItemController extends Controller
     {
         $stores = Store::all();
         //dd($stores);
-        $posts = Post::all()->sortByDesc('created_at');
+        //$posts = Post::all()->sortByDesc('created_at');
+        $posts = Post::with('user')->get()->sortByDesc('created_at');
+        // dd($posts);
         return view('items.show', compact('item', 'stores', 'posts'));
     }
 

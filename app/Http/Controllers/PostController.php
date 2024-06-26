@@ -11,7 +11,9 @@ class PostController extends Controller
 {
     public function index()
      {
-         $posts = Post::all()->sortByDesc('created_at');
+        $posts = Post::with('user')
+        ->orderByDesc('created_at')
+        ->get();
          return view('posts.index', compact('posts'));
      }
 
@@ -37,6 +39,6 @@ class PostController extends Controller
          }
          $post->save();
 
-         return redirect()->route('posts.index')->with('flash_message', '投稿が完了しました。');
+         return back()->with('flash_message', '投稿が完了しました。');
      }
 }
