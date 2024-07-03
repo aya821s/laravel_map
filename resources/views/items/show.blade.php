@@ -28,19 +28,43 @@
           width: 80%;
           height: 80%;
         }
+
+        .marker {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            bottom: -8px;
+            width: 60px;
+            height: 30px;
+            background-color: #60a144;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+            z-index: 1000;
+            pointer-events: none;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .price-marker {
+            position: absolute;
+            color: white;
+        }
+
+        .marker::before{
+            content: '';
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            bottom: -12px;
+            border-top: 15px solid #60a144;
+            border-right: 5px solid transparent;
+            border-left: 5px solid transparent;
+        }
     </style>
 </head>
 <body>
     <h1>{{ $item->name }}の価格マップ</h1>
-    <style>
-        .marker {
-            display: block;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            padding: 0;
-        }
-    </style>
 
    <div id="map"></div>
     @php
@@ -61,6 +85,7 @@
 
             const allPosts = Object.values(posts);
             const storePosts = allPosts.filter(post => post.store_id === store.id);
+            const latestPost = storePosts.length > 0 ? storePosts[0] : null;
 
             // console.log(allPosts);
 
@@ -79,7 +104,8 @@
                         holidays: store.holidays,
                         homepage: store.homepage,
                         iconSize: [60, 60],
-                        posts: storePosts
+                        posts: storePosts,
+                        price: latestPost ? latestPost.price : null,
                     },
                 geometry: {
                     type: 'Point',
@@ -108,10 +134,13 @@
             const width = marker.properties.iconSize[0];
             const height = marker.properties.iconSize[1];
             el.className = 'marker';
-            el.style.backgroundImage = 'url(../../../laravel-map/public/storage/store_images/${marker.properties.imageId}/${width}/${height})`;)';
-            el.style.width = `${width}px`;
-            el.style.height = `${height}px`;
-            el.style.backgroundSize = '100%';
+
+            // Create a price marker element
+            const priceMarker = document.createElement('div');
+            priceMarker.className = 'price-marker';
+            priceMarker.textContent = `${marker.properties.price}円`;
+
+            el.appendChild(priceMarker);
 
             el.addEventListener('click', () => {
                 // モーダルにお店の情報をセットjQuery
