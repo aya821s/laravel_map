@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\EmailNotification;
+use App\Models\User;
+use App\Events\PostCreated;
 
 class PostController extends Controller
 {
@@ -39,6 +43,12 @@ class PostController extends Controller
          }
          $post->save();
 
+
+         event(new PostCreated($post));
+         $users = $post->item->followed_users()->get();
+         Notification::send($users, new EmailNotification($post));
+
          return back()->with('flash_message', '投稿が完了しました。');
+
      }
 }

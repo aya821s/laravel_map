@@ -136,7 +136,7 @@
                     const date = new Date(post.created_at);
 
                     const y = date.getFullYear();
-                    const m= date.getMonth() + 1;
+                    const m = date.getMonth() + 1;
                     const d = date.getDate();
                     const h = date.getHours();
                     const i = date.getMinutes();
