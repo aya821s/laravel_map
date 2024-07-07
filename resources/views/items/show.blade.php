@@ -167,8 +167,8 @@
                     const y = date.getFullYear();
                     const m = date.getMonth() + 1;
                     const d = date.getDate();
-                    const h = date.getHours();
-                    const i = date.getMinutes();
+                    const h = date.getHours().toString().padStart(2, '0');
+                    const i = date.getMinutes().toString().padStart(2, '0');
                     const dateString = y + '/' + m + '/' + d + ' ' + h + ':' + i;
 
                     postsHtml += `

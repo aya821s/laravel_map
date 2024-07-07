@@ -43,8 +43,8 @@ class PostController extends Controller
          }
          $post->save();
 
-
-         event(new PostCreated($post));
+        // メール通知
+        //  event(new PostCreated($post));
          $users = $post->item->followed_users()->get();
          Notification::send($users, new EmailNotification($post));
 
