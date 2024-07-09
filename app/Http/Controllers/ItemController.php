@@ -47,4 +47,10 @@ class ItemController extends Controller
          return view('items.follow', compact('follow_items'));
      }
 
+     public function chart(Item $item)
+    {
+        $posts = Post::all();
+        return view('items.chart', compact('item', 'posts'));
+    }
+
     }

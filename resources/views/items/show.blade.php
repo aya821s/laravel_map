@@ -66,7 +66,8 @@
     </style>
 </head>
 <body>
-    <h1>{{ $item->name }}の価格マップ</h1>
+    <h1>{{ $item->name }}の価格マップ　<a class="text-light text-decoration-none bg-success p-1" href="{{ route('items.chart', $item) }}">価格推移</a></h1>
+
 
    <div id="map"></div>
     @php
@@ -128,7 +129,6 @@
                     const roundedAveragePrice = Math.round(averagePrice);
                     prices.push(roundedAveragePrice);
                 }
-                console.log(prices);
             }
 
             // Set を配列に変換して日付の配列を完成させる
@@ -248,12 +248,12 @@
                             borderColor: "green",
                             backgroundColor: "rgba(0,0,0,0)"
                             }
-                        ],
+                        ]
                     },
                     options: {
                         title: {
                             display: true,
-                            text: '価格推移'
+                            text: marker.properties.name + 'の{{ $item->name }}の価格推移'
                         },
                         scales: {
                             yAxes: [{

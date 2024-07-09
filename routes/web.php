@@ -28,12 +28,12 @@ Route::post('/posts', [PostController::class, 'store'])->middleware(['auth', 've
 
 Route::get('/stores', [StoreController::class, 'index'])->name('stores.index');
 Route::get('/store/{store}', [StoreController::class, 'show'])->name('stores.show');
-Route::get('/store/chart', [StoreController::class, 'chart'])->name('stores.chart');
 
 Route::get('/items', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
 Route::post('items/', [ItemController::class, 'store'])->name('items.store');
 Route::get('/items/follow', [ItemController::class, 'follow'])->name('items.follow');
+Route::get('/item/{item}/chart', [ItemController::class, 'chart'])->name('items.chart');
 
 Route::post('follows/{item_id}', [FollowController::class, 'store'])->name('follows.store');
 Route::delete('follows/{item_id}', [FollowController::class, 'destroy'])->name('follows.destroy');
