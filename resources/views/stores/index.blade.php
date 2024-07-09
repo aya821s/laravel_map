@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     @foreach($stores as $store)
         <div>
             <h2>{{$store->name}}</h2>

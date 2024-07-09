@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Store;
+use App\Models\Post;
 
 use Illuminate\Http\Request;
 
@@ -15,6 +16,9 @@ class StoreController extends Controller
 
     public function show(Store $store)
     {
-        return view('stores.show', compact('store'));
+        $posts = Post::has('store')->get();
+        // $item =
+        return view('stores.show', compact('store', 'posts',));
+        // return view('stores.show', compact('store', 'posts', 'item'));
     }
 }

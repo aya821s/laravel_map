@@ -14,6 +14,8 @@
       href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
       rel="stylesheet"
     />
+    {{-- Chart.jsのスクリプト --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
     <style>
         body {
           margin: 0;
@@ -77,7 +79,6 @@
         mapboxgl.accessToken = 'pk.eyJ1IjoiYXlhODIxIiwiYSI6ImNsd2lvaGJrOTAwOTYybXJ5cm03YWp2b2MifQ.FZRb0fWgupxl2fsvEPn_pA';
         const stores = JSON.parse('<?php echo $store_json; ?>');
         const posts = JSON.parse('<?php echo $post_json; ?>');
-        // console.log(posts);
 
         const features = [];
         for(let i = 0; i < stores.length; i++) {
@@ -85,9 +86,53 @@
 
             const allPosts = Object.values(posts);
             const storePosts = allPosts.filter(post => post.store_id === store.id);
-            const latestPost = storePosts.length > 0 ? storePosts[0] : null;
+            const latestPost = storePosts.length > 0
+                ? storePosts.slice().sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0]
+                : null;
 
-            // console.log(allPosts);
+
+            // グラフ用
+            var prices = [];
+            var days = new Set(); // Set を使用して重複のない日付を保持する
+
+            // 日付ごとに価格を集計するためのオブジェクト
+            var dailyPrices = {};
+
+            for (let j = 0; j < storePosts.length; j++) {
+                const eachPost = Object.values(storePosts[j]);
+                const price = eachPost[2];
+                const date = new Date(eachPost[5]);
+                const m = date.getMonth() + 1;
+                const d = date.getDate();
+                const dateString = m + '/' + d;
+
+                // 日付ごとに価格を集計する
+                if (!dailyPrices[dateString]) {
+                    dailyPrices[dateString] = {
+                        prices: [],
+                        count: 0
+                    };
+                }
+                dailyPrices[dateString].prices.push(price);
+                dailyPrices[dateString].count++;
+
+                // 日付をSetに追加することで重複を避ける
+                days.add(dateString);
+            }
+
+            // 平均価格の配列を作成する
+            for (const day in dailyPrices) {
+                if (dailyPrices.hasOwnProperty(day)) {
+                    const total = dailyPrices[day].prices.reduce((acc, curr) => acc + curr, 0);
+                    const averagePrice = total / dailyPrices[day].count;
+                    const roundedAveragePrice = Math.round(averagePrice);
+                    prices.push(roundedAveragePrice);
+                }
+                console.log(prices);
+            }
+
+            // Set を配列に変換して日付の配列を完成させる
+            days = Array.from(days);
 
             const feature = {
                 type: 'Feature',
@@ -106,6 +151,9 @@
                         iconSize: [60, 60],
                         posts: storePosts,
                         price: latestPost ? latestPost.price : null,
+                         // グラフ用
+                        prices: prices,
+                        days: days,
                     },
                 geometry: {
                     type: 'Point',
@@ -185,6 +233,43 @@
 
                 $('#posts').html(postsHtml);
 
+                 // グラフ用
+                var prices = marker.properties.prices;  // グラフ用の価格データ
+                var days = marker.properties.days;
+                var ctx = document.getElementById("myLineChart");
+                var myLineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: days,
+                        datasets: [
+                            {
+                            label: '価格(円）',
+                            data: prices,
+                            borderColor: "green",
+                            backgroundColor: "rgba(0,0,0,0)"
+                            }
+                        ],
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: '価格推移'
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    suggestedMax: 400,
+                                    suggestedMin: 80,
+                                    stepSize: 20,
+                                    callback: function(value, index, values){
+                                    return  value +  '円'
+                                    }
+                                }
+                            }]
+                        },
+                    }
+                });
+
                 // モーダルを表示
                 $('#storeModal').modal('show');
             });
@@ -220,6 +305,11 @@
                         店舗情報
                       </a>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <a href="#chart" class="nav-link text-secondary" id="campaign-tab" data-bs-toggle="tab" role="tab" aria-controls="chart" aria-selected="false">
+                          価格推移
+                        </a>
+                      </li>
                 </ul>
                 <div class="tab-content px-3" id="myTabContent">
                     <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="detail-tab">
@@ -263,6 +353,9 @@
                             <p id="storeHolidays"></p>
                             <p id="storeHomepage"></p>
                         </div>
+                    </div>
+                    <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+                        <canvas id="myLineChart"></canvas>
                     </div>
                 </div>
             </div>
