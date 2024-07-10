@@ -66,7 +66,7 @@
     </style>
 </head>
 <body>
-    <h1>{{ $item->name }}の価格マップ　<a class="text-light text-decoration-none bg-success p-1" href="{{ route('items.chart', $item) }}">価格推移</a></h1>
+    <h1>{{ $item->name }}の価格マップ　<a class="text-light text-decoration-none bg-success p-1" href="{{ route('items.chart', $item) }}">価格推移</a>　<a class="text-light text-decoration-none bg-info p-1" href="{{ route('items.batch', $item) }}">バッチ処理</a></h1>
 
 
    <div id="map"></div>

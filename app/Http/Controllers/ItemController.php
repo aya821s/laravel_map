@@ -7,6 +7,7 @@ use App\Models\Store;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Price;
 
 
 class ItemController extends Controller
@@ -51,6 +52,16 @@ class ItemController extends Controller
     {
         $posts = Post::all();
         return view('items.chart', compact('item', 'posts'));
+    }
+
+    public function batch(Item $item)
+    {
+        $data = Price::getPricesForChart();
+
+        return view('items.batch', [
+            'prices' => $data['prices'],
+            'days' => $data['days'],
+        ], compact('item'));
     }
 
     }

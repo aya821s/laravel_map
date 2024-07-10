@@ -12,7 +12,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // $schedule->command('prices:update')
+        //          ->timezone('Asia/Tokyo')
+        //          ->dailyAt('00:00')
+        //          ->withoutOverlapping();
+
+        // $schedule->command('prices:update')->dailyAt('00:00')->onFailure(function () {
+        //         Log::error('Prices update command failed!');
+        // }
     }
 
     /**
