@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -12,14 +13,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('prices:update')
-        //          ->timezone('Asia/Tokyo')
-        //          ->dailyAt('00:00')
-        //          ->withoutOverlapping();
-
-        // $schedule->command('prices:update')->dailyAt('00:00')->onFailure(function () {
-        //         Log::error('Prices update command failed!');
-        // }
+        $schedule->command('prices:update')
+                 ->timezone('Asia/Tokyo')
+                 ->dailyAt('00:00')
+                 ->withoutOverlapping()
+                 ->onSuccess(function () {
+                    Log::info('Prices update command successful.');
+                    })
+                 ->onFailure(function () {
+                    Log::error('Prices update command failed!');
+                 });
     }
 
     /**

@@ -41,13 +41,14 @@ h3 {
 main {
     min-height: calc(100vh - 116px);
     box-sizing: border-box;
-    padding: 10px 10%;
+    padding: 20px 10%;
 }
 
 footer {
     margin-top: auto;
     width: 100%;
     bottom: 0;
+    position: absolute;
 }
 
 .footer-container {
