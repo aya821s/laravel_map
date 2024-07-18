@@ -35,7 +35,9 @@ class UpdatePrices extends Command
 
     public function handle()
     {
+        date_default_timezone_set('Asia/Tokyo');
         $this->info('Price Summaray Start.');
+        $this->info(date('Y年m月d日H時i分s秒'));
 
         $items = Item::all();
         foreach ($items as $item) {
