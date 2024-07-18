@@ -25,7 +25,7 @@
 
         #map {
           position: absolute;
-          top: 100px;
+          top: 110px;
           bottom: 0;
           width: 80%;
           height: 80%;
