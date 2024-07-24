@@ -8,6 +8,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Price;
+use App\Models\MonthlyPrice;
 use Illuminate\Support\Facades\DB;
 
 
@@ -61,23 +62,13 @@ class ItemController extends Controller
             ->where('item_id', $item->id)
             ->orderBy('date', 'asc')
             ->get();
-        $created_at = $data->isNotEmpty() ? $data->first()->created_at : null;
+        $lastRecord = $data->last();
+        $created_at = $lastRecord ? $lastRecord->created_at : null;
 
-        $monthly_data = Price::select(
-            DB::raw('MONTH(date) as month'),
-            DB::raw('YEAR(date) as year'),
-            DB::raw('ROUND(AVG(average_price), 1) as average_price'),
-            DB::raw('MAX(high_price) as high_price'),
-            DB::raw('MIN(low_price) as low_price')
-            )
+        $monthly_data = MonthlyPrice::select('average_price', 'high_price', 'low_price', 'month', 'created_at')
             ->where('item_id', $item->id)
-            ->groupBy(DB::raw('YEAR(date)'), DB::raw('MONTH(date)'))
-            ->orderBy(DB::raw('YEAR(date)'), 'asc')
-            ->orderBy(DB::raw('MONTH(date)'), 'asc')
+            ->orderBy('month', 'asc')
             ->get();
-
-            $monthly_data_array = $monthly_data->toArray();
-            $monthly_data_json = json_encode($monthly_data_array);
 
         return view('items.batch', [
             'average_price' => $data->pluck('average_price'),
@@ -85,8 +76,37 @@ class ItemController extends Controller
             'low_price' => $data->pluck('low_price'),
             'days' => $data->pluck('date'),
             'created_at' => $created_at,
-            'monthly_data_json' => $monthly_data_json,
+            'm_average_price' => $monthly_data->pluck('average_price'),
+            'm_high_price' => $monthly_data->pluck('high_price'),
+            'm_low_price' => $monthly_data->pluck('low_price'),
+            'month' => $monthly_data->pluck('month'),
             'item' => $item,
         ]);
+
+        // $monthly_data = Price::select(
+        //     DB::raw('MONTH(date) as month'),
+        //     DB::raw('YEAR(date) as year'),
+        //     DB::raw('ROUND(AVG(average_price), 1) as average_price'),
+        //     DB::raw('MAX(high_price) as high_price'),
+        //     DB::raw('MIN(low_price) as low_price')
+        //     )
+        //     ->where('item_id', $item->id)
+        //     ->groupBy(DB::raw('YEAR(date)'), DB::raw('MONTH(date)'))
+        //     ->orderBy(DB::raw('YEAR(date)'), 'asc')
+        //     ->orderBy(DB::raw('MONTH(date)'), 'asc')
+        //     ->get();
+
+        //     $monthly_data_array = $monthly_data->toArray();
+        //     $monthly_data_json = json_encode($monthly_data_array);
+
+        // return view('items.batch', [
+        //     'average_price' => $data->pluck('average_price'),
+        //     'high_price' => $data->pluck('high_price'),
+        //     'low_price' => $data->pluck('low_price'),
+        //     'days' => $data->pluck('date'),
+        //     'created_at' => $created_at,
+        //     'monthly_data_json' => $monthly_data_json,
+        //     'item' => $item,
+        // ]);
     }
 }

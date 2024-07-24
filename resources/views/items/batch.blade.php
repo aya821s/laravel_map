@@ -13,6 +13,10 @@
     $high_price = json_encode($high_price);
     $low_price = json_encode($low_price);
     $days = json_encode($days);
+    $m_average_price = json_encode($m_average_price);
+    $m_high_price = json_encode($m_high_price);
+    $m_low_price = json_encode($m_low_price);
+    $month = json_encode($month);
 @endphp
 
 <script>
@@ -45,50 +49,40 @@
                 borderColor: "blue",
                 backgroundColor: "rgba(0,0,0,0)"
                 }
-      ],
-    },
-    options: {
-      title: {
-        display: true,
-        text: '{{ $item->name }}の価格推移'
-      },
-      scales: {
-        yAxes: [{
-          ticks: {
-            suggestedMax: 380,
-            suggestedMin: 80,
-            stepSize: 20,
-            callback: function(value, index, values){
-              return  value +  '円'
-            }
-          }
-        }]
-      },
-    }
-  });
+            ],
+        },
+        options: {
+            title: {
+                display: true,
+                text: '{{ $item->name }}の価格推移'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        suggestedMax: 380,
+                        suggestedMin: 80,
+                        stepSize: 20,
+                        callback: function(value, index, values){
+                            return  value +  '円'
+                        }
+                    }
+                }]
+            },
+        }
+    });
 
 
-//月別のグラフ
-const monthly_data = JSON.parse('<?php echo $monthly_data_json; ?>');
-const formatted_data = monthly_data.map(data => {
-    return {
-        year_month: `${data.year}/${('0' + data.month).slice(-2)}`,
-        average_price: data.average_price,
-        high_price: data.high_price,
-        low_price: data.low_price,
-    };
-});
+    //月別のグラフ
+    const m_average = JSON.parse('<?php echo $m_average_price; ?>');
+    const m_high = JSON.parse('<?php echo $m_high_price; ?>');
+    const m_low = JSON.parse('<?php echo $m_low_price; ?>');
+    const month = JSON.parse('<?php echo $month; ?>');
 
-const y_m = formatted_data.map(data => data.year_month);
-const m_average = formatted_data.map(data => data.average_price);
-const m_high = formatted_data.map(data => data.high_price);
-const m_low = formatted_data.map(data => data.low_price);
-
-  var ctx = document.getElementById("monthlyChart");
+    var ctx = document.getElementById("monthlyChart");
     var monthlyChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: y_m,
+            labels: month,
             datasets: [
                 {
                 label: '平均価格(円）',
@@ -108,26 +102,26 @@ const m_low = formatted_data.map(data => data.low_price);
                 borderColor: "blue",
                 backgroundColor: "rgba(0,0,0,0)"
                 }
-      ],
-    },
-    options: {
-      title: {
-        display: true,
-        text: '{{ $item->name }}の価格推移（月別）'
-      },
-      scales: {
-        yAxes: [{
-          ticks: {
-            suggestedMax: 380,
-            suggestedMin: 80,
-            stepSize: 20,
-            callback: function(value, index, values){
-              return  value +  '円'
-            }
-          }
-        }]
-      },
-    }
-  });
+            ],
+        },
+        options: {
+            title: {
+                display: true,
+                text: '{{ $item->name }}の価格推移（月別）'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        suggestedMax: 380,
+                        suggestedMin: 80,
+                        stepSize: 20,
+                        callback: function(value, index, values){
+                        return  value +  '円'
+                        }
+                    }
+                }]
+            },
+        }
+    });
 </script>
 @endsection

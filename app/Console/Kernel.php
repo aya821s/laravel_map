@@ -23,6 +23,17 @@ class Kernel extends ConsoleKernel
                  ->onFailure(function () {
                     Log::error('Prices update command failed!');
                  });
+
+        $schedule->command('monthly-prices:update')
+                ->timezone('Asia/Tokyo')
+                ->dailyAt('00:00')
+                ->withoutOverlapping()
+                ->onSuccess(function () {
+                    Log::info('Monthly prices update command successful.');
+                    })
+                ->onFailure(function () {
+                    Log::error('Monthly prices update command failed!');
+                    });
     }
 
     /**

@@ -12,7 +12,6 @@
     <?php
     // 開始時間をCarbonオブジェクトに変換
     $startDateTime = \Carbon\Carbon::createFromFormat('YmdHi', $weatherData->Feature->Property->WeatherList->Weather[0]->Date);
-
     // 終了時間を計算してCarbonオブジェクトに変換
     $endDateTime = $startDateTime->copy()->addMinutes(60);
     ?>
