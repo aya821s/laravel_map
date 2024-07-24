@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="col-sm-10">
+<div class="col-sm-9">
     {{-- <a href="{{ route('mypage') }}">マイページ</a>
     <a href="{{ route('mypage.edit') }}">マイページ編集</a>
     <a href="{{ route('items.index') }}">食材の選択</a>
     <a href="{{ route('admin.login') }}">管理画面にログイン</a> --}}
 </div>
-<div class="col-sm-2">
+<div class="col-sm-3 text-center">
     @if(isset($weatherData->Feature))
     <?php
     // 開始時間をCarbonオブジェクトに変換
@@ -26,7 +26,15 @@
 
                 <tr>
                     <td>{{ $dateTime->format('H:i') }}</td>
-                    <td>{{ $weather->Rainfall }} mm</td>
+                    <td>{{ $weather->Rainfall }} mm　
+                        <span>
+                            @if ($weather->Rainfall > 0)
+                                <i class="fas fa-umbrella" style="color: blue;"></i>
+                            @else
+                                <i class="far fa-smile" style="color: rgb(239, 21, 178);"></i>
+                            @endif
+                        </span>
+                    </td>
                 </tr>
         @endforeach
     </table>

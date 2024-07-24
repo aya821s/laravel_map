@@ -33,7 +33,7 @@
             datasets: [
                 {
                 label: '平均価格(円）',
-                data: avaragePrices,
+                data: averagePrices,
                 borderColor: "green",
                 backgroundColor: "rgba(0,0,0,0)"
                 },
