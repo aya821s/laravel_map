@@ -74,6 +74,7 @@
     @php
         $store_json = json_encode($stores);
         $post_json = json_encode($posts);
+        $price_data_json = json_encode($price_data);
     @endphp
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -81,6 +82,7 @@
         mapboxgl.accessToken = 'pk.eyJ1IjoiYXlhODIxIiwiYSI6ImNsd2lvaGJrOTAwOTYybXJ5cm03YWp2b2MifQ.FZRb0fWgupxl2fsvEPn_pA';
         const stores = JSON.parse('<?php echo $store_json; ?>');
         const posts = JSON.parse('<?php echo $post_json; ?>');
+        const price_data = JSON.parse('<?php echo $price_data_json; ?>');
 
         const features = [];
         for(let i = 0; i < stores.length; i++) {
@@ -91,49 +93,13 @@
             const latestPost = storePosts.length > 0
                 ? storePosts.slice().sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0]
                 : null;
-
-
             // グラフ用
-            var prices = [];
-            var days = new Set(); // Set を使用して重複のない日付を保持する
-
-            // 日付ごとに価格を集計するためのオブジェクト
-            var dailyPrices = {};
-
-            for (let j = 0; j < storePosts.length; j++) {
-                const eachPost = Object.values(storePosts[j]);
-                const price = eachPost[2];
-                const date = new Date(eachPost[5]);
-                const m = date.getMonth() + 1;
-                const d = date.getDate();
-                const dateString = m + '/' + d;
-
-                // 日付ごとに価格を集計する
-                if (!dailyPrices[dateString]) {
-                    dailyPrices[dateString] = {
-                        prices: [],
-                        count: 0
-                    };
-                }
-                dailyPrices[dateString].prices.push(price);
-                dailyPrices[dateString].count++;
-
-                // 日付をSetに追加することで重複を避ける
-                days.add(dateString);
-            }
-
-            // 平均価格の配列を作成する
-            for (const day in dailyPrices) {
-                if (dailyPrices.hasOwnProperty(day)) {
-                    const total = dailyPrices[day].prices.reduce((acc, curr) => acc + curr, 0);
-                    const averagePrice = total / dailyPrices[day].count;
-                    const roundedAveragePrice = Math.round(averagePrice);
-                    prices.push(roundedAveragePrice);
-                }
-            }
-
-            // Set を配列に変換して日付の配列を完成させる
-            days = Array.from(days);
+            const allPrice = Object.values(price_data);
+            const storePrice = allPrice.filter(allPrice => allPrice.store_id === store.id);
+            const averagePrices = storePrice.map(price => price.average_price);
+            const highPrices = storePrice.map(price => price.high_price);
+            const lowPrices = storePrice.map(price => price.low_price);
+            const days = storePrice.map(price => price.date);
 
             const feature = {
                 type: 'Feature',
@@ -153,8 +119,10 @@
                         posts: storePosts,
                         price: latestPost ? latestPost.price : null,
                          // グラフ用
-                        prices: prices,
-                        days: days,
+                         averagePrices: averagePrices,
+                         highPrices: highPrices,
+                         lowPrices: lowPrices,
+                         days: days,
                     },
                 geometry: {
                     type: 'Point',
@@ -235,7 +203,9 @@
                 $('#posts').html(postsHtml);
 
                  // グラフ用
-                var prices = marker.properties.prices;  // グラフ用の価格データ
+                var averagePrices = marker.properties.averagePrices;
+                var highPrices = marker.properties.averagePrices;
+                var lowPrices = marker.properties.averagePrices;
                 var days = marker.properties.days;
                 var ctx = document.getElementById("myLineChart");
                 var myLineChart = new Chart(ctx, {
@@ -244,12 +214,24 @@
                         labels: days,
                         datasets: [
                             {
-                            label: '価格(円）',
-                            data: prices,
+                            label: '平均価格(円）',
+                            data: averagePrices,
                             borderColor: "green",
                             backgroundColor: "rgba(0,0,0,0)"
+                            },
+                            {
+                            label: '最高価格(円）',
+                            data: highPrices,
+                            borderColor: "red",
+                            backgroundColor: "rgba(0,0,0,0)"
+                            },
+                            {
+                            label: '最低価格(円）',
+                            data: lowPrices,
+                            borderColor: "blue",
+                            backgroundColor: "rgba(0,0,0,0)"
                             }
-                        ]
+                        ],
                     },
                     options: {
                         title: {

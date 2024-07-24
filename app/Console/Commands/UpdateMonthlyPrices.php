@@ -22,7 +22,7 @@ class UpdateMonthlyPrices extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Update monthly average, high, and low prices for items';
 
     /**
      * Execute the console command.
@@ -30,7 +30,7 @@ class UpdateMonthlyPrices extends Command
     public function handle()
     {
         date_default_timezone_set('Asia/Tokyo');
-        $this->info('Price Summary Start.');
+        $this->info('Monthly Price Summary Start.');
         $this->info(date('Y年m月d日 H時i分s秒'));
 
         $items = Item::all();

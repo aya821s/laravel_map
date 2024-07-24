@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Price;
 use App\Models\MonthlyPrice;
+use App\Models\StorePrice;
 use Illuminate\Support\Facades\DB;
 
 
@@ -27,8 +28,17 @@ class ItemController extends Controller
         //$posts = Post::all()->sortByDesc('created_at');
         $posts = Post::with('user')->get()->sortByDesc('created_at');
         // dd($posts);
-        return view('items.show', compact('item', 'stores', 'posts'));
-    }
+
+        $price_data = StorePrice::select('store_id', 'average_price', 'high_price', 'low_price', 'date', 'created_at')
+                ->where('item_id', $item->id)
+                ->orderBy('date', 'asc')
+                ->get();
+
+        $lastRecord = $price_data->last();
+        $created_at = $lastRecord ? $lastRecord->created_at : null;
+
+        return view('items.show', compact('item', 'stores', 'posts', 'price_data', 'created_at'));
+        }
 
     public function store(Request $request)
      {
