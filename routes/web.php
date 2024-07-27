@@ -34,7 +34,7 @@ Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
 Route::post('items/', [ItemController::class, 'store'])->name('items.store');
 Route::get('/items/follow', [ItemController::class, 'follow'])->name('items.follow');
 Route::get('/item/{item}/chart', [ItemController::class, 'chart'])->name('items.chart');
-Route::get('/item/{item}/batch', [ItemController::class, 'batch'])->name('items.batch');
+Route::get('/item/{item}/graph', [ItemController::class, 'batch'])->name('items.batch');
 
 Route::post('follows/{item_id}', [FollowController::class, 'store'])->name('follows.store');
 Route::delete('follows/{item_id}', [FollowController::class, 'destroy'])->name('follows.destroy');

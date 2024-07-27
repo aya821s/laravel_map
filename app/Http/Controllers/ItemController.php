@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Price;
 use App\Models\MonthlyPrice;
 use App\Models\StorePrice;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
 
 
@@ -40,7 +41,19 @@ class ItemController extends Controller
         $lastRecord = $price_data->last();
         $created_at = $lastRecord ? $lastRecord->created_at : null;
 
-        return view('items.show', compact('item', 'stores', 'posts', 'price_data', 'created_at'));
+        $client = new Client();
+        $response = $client->get('https://map.yahooapis.jp/weather/V1/place', [
+            'query' => [
+                'coordinates' => '139.732293,35.663613',
+                'appid' => 'dj00aiZpPXYzdHBsa0FxemlBQSZzPWNvbnN1bWVyc2VjcmV0Jng9OGQ-',
+                'output' => 'xml',
+            ]
+        ]);
+
+        $xmlString = $response->getBody()->getContents();
+        $xml = simplexml_load_string($xmlString);
+
+        return view('items.show',  ['weatherData' => $xml,], compact('item', 'stores', 'posts', 'price_data', 'created_at'));
         }
 
     public function store(Request $request)

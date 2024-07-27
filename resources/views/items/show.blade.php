@@ -2,7 +2,6 @@
 
 @section('content')
 <body>
-    <div class="items-show-body">
 
     <h1>{{ $item->name }}の価格マップ
         <a class="graph-icon" href="{{ route('items.batch', $item) }}">
@@ -12,8 +11,8 @@
             <i class="fas fa-chart-line"></i>
         </a> --}}
     </h1>
-
-   <div id="map"></div>
+    <div class="col-sm-9">
+        <div id="map"></div>
     @php
         $store_json = json_encode($stores);
         $post_json = json_encode($posts);
@@ -111,7 +110,7 @@
                 $('#storeHours').text(`営業時間 ${marker.properties.openingTime}～${marker.properties.closingTime}`);
                 $('#storeAddress').text(`住所 〒${marker.properties.postalCode.slice(0, 3)}-${marker.properties.postalCode.slice(3)} ${marker.properties.address}`);
                 $('#storePhone').text(`電話番号 ${marker.properties.phoneNumber}`);
-                $('#storeHolidays').text(`定休日 ${marker.properties.holidays}`);
+                $('#storeHolidays').text(`定休日: ${marker.properties.holidays || 'なし'}`);
                 $('#storeHomepage').html(`ホームページ <a href="${marker.properties.homepage}" target="_blank">${marker.properties.homepage}</a>`);
                 $('#postId').val(marker.properties.id);
 
@@ -206,7 +205,7 @@
                 .addTo(map);
         };
     </script>
-
+</div>
     <!-- modal -->
     <div class="modal fade" id="storeModal" tabindex="-1" aria-labelledby="storeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-fluid">
@@ -287,6 +286,40 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="col-sm-3 text-center">
+        @if(isset($weatherData->Feature))
+        <?php
+        // 開始時間をCarbonオブジェクトに変換
+        $startDateTime = \Carbon\Carbon::createFromFormat('YmdHi', $weatherData->Feature->Property->WeatherList->Weather[0]->Date);
+        // 終了時間を計算してCarbonオブジェクトに変換
+        $endDateTime = $startDateTime->copy()->addMinutes(60);
+        ?>
+
+        <p>{{ $startDateTime->format('n/j G:i') }}から<br>60分間の降水量予報</p>
+        <table class="table table-bordered">
+            @foreach($weatherData->Feature->Property->WeatherList->Weather as $weather)
+                    <?php
+                        // 日付をCarbonオブジェクトにパースする
+                        $dateTime = \Carbon\Carbon::createFromFormat('YmdHi', $weather->Date);
+                    ?>
+
+                    <tr>
+                        <td>{{ $dateTime->format('H:i') }}</td>
+                        <td>{{ $weather->Rainfall }} mm　
+                            <span>
+                                @if ($weather->Rainfall > 0)
+                                    <i class="fas fa-umbrella" style="color: blue;"></i>
+                                @else
+                                    <i class="far fa-smile" style="color: rgb(239, 21, 178);"></i>
+                                @endif
+                            </span>
+                        </td>
+                    </tr>
+            @endforeach
+        </table>
+        @else
+            <p>気象情報を取得できませんでした。</p>
+        @endif
+    </div>
 </body>
 @endsection

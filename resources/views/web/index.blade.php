@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="col-sm-9">
+<div class="col-sm-6">
     {{-- <a href="{{ route('mypage') }}">マイページ</a>
     <a href="{{ route('mypage.edit') }}">マイページ編集</a>
     <a href="{{ route('items.index') }}">食材の選択</a>
@@ -48,7 +48,7 @@
         @endif
     </div>
 </div>
-<div class="col-sm-3 text-center">
+<div class="col-sm-6 text-center">
     @if(isset($weatherData->Feature))
     <?php
     // 開始時間をCarbonオブジェクトに変換
