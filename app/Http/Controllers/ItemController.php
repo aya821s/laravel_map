@@ -26,7 +26,10 @@ class ItemController extends Controller
         $stores = Store::all();
         //dd($stores);
         //$posts = Post::all()->sortByDesc('created_at');
-        $posts = Post::with('user')->get()->sortByDesc('created_at');
+        $posts = Post::with('user')
+                ->where('item_id', $item->id)
+                ->get()
+                ->sortByDesc('created_at');
         // dd($posts);
 
         $price_data = StorePrice::select('store_id', 'average_price', 'high_price', 'low_price', 'date', 'created_at')

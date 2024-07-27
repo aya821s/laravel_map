@@ -20,7 +20,7 @@
 @endphp
 
 <script>
-    const avaragePrices = JSON.parse('<?php echo $average_price; ?>');
+    const averagePrices = JSON.parse('<?php echo $average_price; ?>');
     const highPrices = JSON.parse('<?php echo $high_price; ?>');
     const lowPrices = JSON.parse('<?php echo $low_price; ?>');
     const days = JSON.parse('<?php echo $days; ?>');
