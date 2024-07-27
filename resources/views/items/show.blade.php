@@ -9,6 +9,7 @@
       href="https://fonts.googleapis.com/css?family=Open+Sans"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
     <link
       href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
@@ -63,13 +64,29 @@
             border-right: 5px solid transparent;
             border-left: 5px solid transparent;
         }
+
+        .graph-icon {
+            padding: 3px;
+            border-radius: 10%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #60a144;
+            color: white;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 
-    <h1>{{ $item->name }}の価格マップ　<a class="text-light text-decoration-none bg-success p-1" href="{{ route('items.batch', $item) }}">価格推移</a></h1>
-       {{-- <a class="text-light text-decoration-none bg-success p-1" href="{{ route('items.chart', $item) }}">価格推移</a>--}}
-
+    <h1 class="mx-1">{{ $item->name }}の価格マップ
+        <a class="graph-icon" href="{{ route('items.batch', $item) }}">
+            <i class="fas fa-chart-line"></i>
+        </a>
+        {{-- <a class="text-light text-decoration-none graph-icon" href="{{ route('items.chart', $item) }}">
+            <i class="fas fa-chart-line"></i>
+        </a> --}}
+    </h1>
 
    <div id="map"></div>
     @php
