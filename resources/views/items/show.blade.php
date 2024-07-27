@@ -1,85 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<head>
-    <meta charset="utf-8" />
-    <title>Add custom markers in Mapbox GL JS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
-    <link
-      href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
-      rel="stylesheet"
-    />
-    {{-- Chart.jsのスクリプト --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-    <style>
-        body {
-          margin: 0;
-          padding: 0;
-          position: relative;
-        }
-
-        #map {
-          position: absolute;
-          top: 110px;
-          bottom: 0;
-          width: 80%;
-          height: 80%;
-        }
-
-        .marker {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            bottom: -8px;
-            width: 60px;
-            height: 30px;
-            background-color: #60a144;
-            padding: 10px;
-            border-radius: 5px;
-            white-space: nowrap;
-            z-index: 1000;
-            pointer-events: none;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .price-marker {
-            position: absolute;
-            color: white;
-        }
-
-        .marker::before{
-            content: '';
-            position: absolute;
-            display: block;
-            width: 0;
-            height: 0;
-            bottom: -12px;
-            border-top: 15px solid #60a144;
-            border-right: 5px solid transparent;
-            border-left: 5px solid transparent;
-        }
-
-        .graph-icon {
-            padding: 3px;
-            border-radius: 10%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #60a144;
-            color: white;
-            text-decoration: none;
-        }
-    </style>
-</head>
 <body>
+    <div class="items-show-body">
 
-    <h1 class="mx-1">{{ $item->name }}の価格マップ
+    <h1>{{ $item->name }}の価格マップ
         <a class="graph-icon" href="{{ route('items.batch', $item) }}">
             <i class="fas fa-chart-line"></i>
         </a>
@@ -362,5 +287,6 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 @endsection
