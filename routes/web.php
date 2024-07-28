@@ -32,7 +32,7 @@ Route::get('/store/{store}', [StoreController::class, 'show'])->name('stores.sho
 Route::get('/items', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
 Route::post('items/', [ItemController::class, 'store'])->name('items.store');
-Route::get('/items/follow', [ItemController::class, 'follow'])->name('items.follow');
+Route::get('main', [ItemController::class, 'follow'])->name('items.follow');
 Route::get('/item/{item}/chart', [ItemController::class, 'chart'])->name('items.chart');
 Route::get('/item/{item}/graph', [ItemController::class, 'batch'])->name('items.batch');
 

@@ -71,9 +71,35 @@ class ItemController extends Controller
 
      public function follow()
      {
-         $user = Auth::user();
-         $follow_items = $user->follow_items;
-         return view('items.follow', compact('follow_items'));
+        {
+            $user = Auth::user();
+            $follow_items = $user->follow_items;
+
+            $client = new Client();
+            $response = $client->get('https://map.yahooapis.jp/weather/V1/place', [
+                'query' => [
+                    'coordinates' => '139.732293,35.663613',
+                    'appid' => 'dj00aiZpPXYzdHBsa0FxemlBQSZzPWNvbnN1bWVyc2VjcmV0Jng9OGQ-',
+                    'output' => 'xml',
+                ]
+            ]);
+
+            $followItemIds = $follow_items->pluck('id')->toArray();
+            $posts = Post::with('user')
+                ->whereIn('item_id', $followItemIds)
+                ->orderBy('created_at', 'desc')
+                ->limit(10)
+                ->get();
+
+            $xmlString = $response->getBody()->getContents();
+            $xml = simplexml_load_string($xmlString);
+
+            return view('items.follow', [
+                'weatherData' => $xml,
+                'follow_items' => $follow_items,
+                'posts' => $posts,
+            ]);
+         }
      }
 
      public function chart(Item $item)

@@ -214,6 +214,14 @@ body {
     text-decoration: none;
 }
 
+.main-item-card {
+    background-color: #f9f9ec;
+    border-radius: 10px;
+    height: 167px;
+}
+.main-card-bg {
+    background-color: #fffff9;
+}
 @media screen and (min-width: 1400px) {
     .main-container {
         max-width: 1200px;
