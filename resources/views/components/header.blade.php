@@ -2,7 +2,7 @@
     <div class="container">
         <div class="d-flex justify-content-center">
             <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                <img src="{{asset('/storage/logo.png')}}" style="height: 26px; margin-right: 6px;">
+                <img src="{{asset('/storage/logo_images/logo_g.png')}}" style="height: 26px; margin-right: 6px;">
                 {{ config('app.name', 'Laravel') }}
             </a>
         </div>
@@ -11,7 +11,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto header_menu">
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">ログイン</a>
@@ -45,7 +45,7 @@
                     </li>
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle header_menu" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

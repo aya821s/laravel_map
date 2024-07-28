@@ -35,14 +35,7 @@ h3 {
 }
 
 .header-bg {
-    background-color: #5fb560;
-}
-
-main {
-    min-height: calc(100vh - 116px);
-    box-sizing: border-box;
-    padding: 20px 5%;
-    position: relative;
+    background-color: #f8f8f8;
 }
 
 footer {
@@ -53,10 +46,28 @@ footer {
 }
 
 .footer-container {
-    background-color: #5fb560;
+    background-color: #f8f8f8;
     height: 60px;
     line-height: 60px;
     padding-left: 20px;
+}
+
+.navbar-brand,
+.header_menu {
+    color: rgb(10, 118, 10);
+}
+
+.navbar-brand:hover,
+.header_menu:hover,
+.header_menu:active {
+    color: rgb(9, 102, 9) !important;
+}
+
+main {
+    min-height: calc(100vh - 116px);
+    box-sizing: border-box;
+    padding: 20px 5%;
+    position: relative;
 }
 
 .auth-container {
@@ -77,6 +88,24 @@ footer {
 
 .item-container {
     position: relative;
+}
+
+.top_text {
+    line-height: 2.8rem;
+}
+
+.register_btn {
+    width: 150px;
+    background-color: rgb(10, 118, 10);
+    text-decoration: none;
+    color: white;
+}
+
+.register_btn:hover {
+    width: 150px;
+    background-color: rgb(9, 104, 9);
+    text-decoration: none;
+    color: white;
 }
 
 .follow-btn {
@@ -102,7 +131,7 @@ footer {
     min-height: 200px;
 }
 .green-btn {
-    background-color: #5fb560;
+    background-color: rgb(10, 118, 10);
     transition: 0.15s;
     width: 300px;
 }
@@ -111,7 +140,7 @@ footer {
 .green-btn:hover,
 .follow-btn:hover,
 .unfollow-btn:hover {
-    background-color: #389639;
+    background-color: rgb(9, 104, 9);
     transition: 0.15s;
 }
 
