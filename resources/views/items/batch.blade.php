@@ -34,19 +34,19 @@
                 {
                 label: '平均価格(円）',
                 data: averagePrices,
-                borderColor: "green",
+                borderColor: "#00B555",
                 backgroundColor: "rgba(0,0,0,0)"
                 },
                 {
                 label: '最高価格(円）',
                 data: highPrices,
-                borderColor: "red",
+                borderColor: "#E61466",
                 backgroundColor: "rgba(0,0,0,0)"
                 },
                 {
                 label: '最低価格(円）',
                 data: lowPrices,
-                borderColor: "blue",
+                borderColor: "#007EFF",
                 backgroundColor: "rgba(0,0,0,0)"
                 }
             ],
@@ -87,19 +87,19 @@
                 {
                 label: '平均価格(円）',
                 data: m_average,
-                borderColor: "green",
+                borderColor: "#00B555",
                 backgroundColor: "rgba(0,0,0,0)"
                 },
                 {
                 label: '最高価格(円）',
                 data: m_high,
-                borderColor: "red",
+                borderColor: "#E61466",
                 backgroundColor: "rgba(0,0,0,0)"
                 },
                 {
                 label: '最低価格(円）',
                 data: m_low,
-                borderColor: "blue",
+                borderColor: "#007EFF",
                 backgroundColor: "rgba(0,0,0,0)"
                 }
             ],

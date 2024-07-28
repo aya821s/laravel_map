@@ -10,7 +10,7 @@
             <i class="fas fa-chart-line"></i>
         </a> --}}
     </h1>
-    <div class="col-sm-9">
+    <div class="col-sm-10">
         <div id="map"></div>
         @php
             $store_json = json_encode($stores);
@@ -157,19 +157,19 @@
                                 {
                                 label: '平均価格(円）',
                                 data: averagePrices,
-                                borderColor: "green",
+                                borderColor: "#00B555",
                                 backgroundColor: "rgba(0,0,0,0)"
                                 },
                                 {
                                 label: '最高価格(円）',
                                 data: highPrices,
-                                borderColor: "red",
+                                borderColor: "#E61466",
                                 backgroundColor: "rgba(0,0,0,0)"
                                 },
                                 {
                                 label: '最低価格(円）',
                                 data: lowPrices,
-                                borderColor: "blue",
+                                borderColor: "#007EFF",
                                 backgroundColor: "rgba(0,0,0,0)"
                                 }
                             ],
@@ -285,7 +285,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-3 text-center">
+    <div class="col-sm-2 text-center">
         @if(isset($weatherData->Feature))
         <?php
         // 開始時間をCarbonオブジェクトに変換
@@ -309,7 +309,7 @@
                                 @if ($weather->Rainfall > 0)
                                     <i class="fas fa-umbrella" style="color: blue;"></i>
                                 @else
-                                    <i class="far fa-smile" style="color: rgb(239, 21, 178);"></i>
+                                    <i class="far fa-smile" style="color: rgb(239, 112, 21);"></i>
                                 @endif
                             </span>
                         </td>
