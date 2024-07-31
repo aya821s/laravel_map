@@ -30,14 +30,14 @@
                         <td>{{$user->id}}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
-                        <td><a href="{{ route('admin.users.show', $user) }}">詳細</a></td>
+                        <td><a href="{{ route('admin.users.show', $user) }}" class="green-link">詳細</a></td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
         <div>
             Sort By
-            @sortablelink('id', 'ID')
+            @sortablelink('id', 'ID', null, ['style' => 'color: green;'])
         </div>
 </div>
 @endsection

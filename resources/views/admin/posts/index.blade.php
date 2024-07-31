@@ -24,7 +24,7 @@
 
                 <div class="row">
                     <div class="col-auto">
-                        <p>{{ $post->created_at}}</p>
+                        <p>{{ $post->created_at->format('Y/m/d H:i:s')}}</p>
                     </div>
                     <div class="col-auto">
                         @if ($post->is_anonymous !== 1)
@@ -36,13 +36,13 @@
                 </div>
                 <div class="row">
                     <div class="col-auto">
-                        <a href="{{ route('admin.posts.edit', $post) }}">編集</a>
+                        <a href="{{ route('admin.posts.edit', $post) }}" class="green-link">編集</a>
                     </div>
                     <div class="col-auto">
                         <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">削除</button>
+                            <button type="submit" class="green-link">削除</button>
                         </form>
                     </div>
                 </div>

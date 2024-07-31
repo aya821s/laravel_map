@@ -97,7 +97,7 @@
                     // Create a price marker element
                     const priceMarker = document.createElement('div');
                     priceMarker.className = 'price-marker';
-                    priceMarker.textContent = `${marker.properties.price}円`;
+                    priceMarker.textContent = marker.properties.price !== null ? `${marker.properties.price}円` : '-';
 
                     el.appendChild(priceMarker);
 

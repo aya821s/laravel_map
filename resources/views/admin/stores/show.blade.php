@@ -75,14 +75,18 @@
                 <span>経度</span>
                 <span>{{ $store->longitude }}</span>
             </div>
-
-
-            <div><a href="{{ route('admin.stores.edit', $store) }}">編集</a></div>
-            <form class="text-center" method="POST" action="{{ route('admin.stores.destroy') }}" onsubmit="return confirm('本当に削除しますか？');">
-                @csrf
-                <input type="hidden" name="_method" value="DELETE">
-                <button type="submit">削除</button>
-            </form>
+            <div class="row">
+                <div class="col-1">
+                    <a href="{{ route('admin.stores.edit', $store) }}" class="d-flex green-link">編集</a>
+                </div>
+                <div class="col-1 green-link">
+                    <form class="text-center" method="POST" action="{{ route('admin.stores.destroy') }}" onsubmit="return confirm('本当に削除しますか？');">
+                        @csrf
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit">削除</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

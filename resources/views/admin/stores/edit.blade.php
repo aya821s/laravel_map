@@ -80,7 +80,7 @@
             <input name="image" type="file" class="form-control">
         </div>
 
-        <button type="submit">
+        <button type="submit" class="btn mb-5">
             保存
         </button>
     </form>

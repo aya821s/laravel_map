@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light header-bg">
     <div class="container">
         <div class="d-flex justify-content-center">
-            <a class="navbar-brand d-flex align-items-center" href="{{ url('main') }}">
+            <a class="navbar-brand d-flex align-items-center" href="{{ Auth::guard('admin')->check() ? route('admin.home') : url('main') }}">
                 <img src="{{asset('/storage/logo_images/logo_g.png')}}" style="height: 26px; margin-right: 6px;">
                 {{ config('app.name', 'Laravel') }}
             </a>
@@ -30,8 +30,6 @@
                             <a class="dropdown-item" href="{{ route('admin.stores.index') }}">店舗一覧</a>
                             <a class="dropdown-item" href="{{ route('admin.items.index') }}">食材一覧</a>
                             <a class="dropdown-item" href="{{ route('admin.posts.index') }}">投稿一覧</a>
-                            <a class="dropdown-item" href="#">会社概要</a>
-                            <a class="dropdown-item" href="#">利用規約</a>
                         <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('admin.logout') }}"
                                 onclick="event.preventDefault();

@@ -9,9 +9,11 @@
     @endif
 
     @if ($follow_items->isEmpty())
-        <a href="{{ route('items.index') }}">
-            食材をフォローしよう！
-        </a>
+        <div class="mt-4">
+            <a href="{{ route('items.index') }}" class="green-link">
+                食材をフォローしよう！
+            </a>
+        </div>
     @else
         <h3>フォローしている食材</h3>
         <div class="row wrapper text-center">

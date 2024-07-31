@@ -19,7 +19,6 @@
         </div>
     </form>
 
-
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -35,13 +34,13 @@
             <td>{{$item->id}}</td>
             <td>{{$item->name}}</td>
             <td>
-                <a href="{{ route('admin.items.edit', $item) }}">編集</a>
+                <a href="{{ route('admin.items.edit', $item) }}" class="green-link">編集</a>
             </td>
             <td>
                 <form action="{{ route('admin.items.destroy', $item) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit">削除</button>
+                    <button type="submit" class="green-link">削除</button>
                 </form>
             </td>
     @endforeach

@@ -51,6 +51,12 @@
                     <a class="green-link" href="{{ route('password.request') }}">{{ __('パスワードをお忘れの方はこちら') }}</a>
                 </div>
             @endif
+
+            <div class="auth-contents py-2">
+                <a class="text-secondary text-decoration-none" href="{{ route('admin.login') }}">管理者はこちら</a>
+            </div>
         </div>
     </div>
 @endsection
+
+

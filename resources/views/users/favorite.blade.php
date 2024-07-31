@@ -12,7 +12,7 @@
 
 <div class="fav_container mt-2 mb-5">
     @if ($favorite_posts->isEmpty())
-            <p>お気に入りの投稿はありません。</p>
+        <p>お気に入りの投稿はありません。</p>
     @else
         @foreach ($favorite_posts as $post)
         <div class="card mb-2 main-card-bg">
