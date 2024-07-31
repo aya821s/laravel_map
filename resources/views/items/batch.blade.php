@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="pb-5">
-    <p class="text-black-50 text-right">更新：{{ ($created_at) }}</p>
-    <canvas id="dailyChart" class="pb-5"></canvas>
-    <canvas id="monthlyChart" class="pb-3"></canvas>
+    <p class="text-black-50 text-right">更新：{{ ($created_at)->format('Y/m/d H:i') }}</p>
+    <canvas id="dailyChart" class="pb-3"></canvas>
+    <canvas id="monthlyChart" class="pb-2"></canvas>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 

@@ -28,7 +28,7 @@
                 </div>
 
                 <!-- Remember Me -->
-                <div class="py-2">
+                <div class="pt-1 pb-2">
                     <label for="remember_me" class="inline-flex items-center">
                         <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
                         <span class="ms-2 text-sm text-gray-600">{{ __('次回から自動的にログインする') }}</span>
@@ -43,12 +43,12 @@
             <!-- Register -->
 
             <div class="auth-contents py-2">
-                <a class="green-links" href="{{ route('register') }}">新規会員登録はこちら</a>
+                <a class="green-link" href="{{ route('register') }}">新規会員登録はこちら</a>
             </div>
 
             @if (Route::has('password.request'))
                 <div class="auth-contents py-2">
-                    <a class="green-links" href="{{ route('password.request') }}">{{ __('パスワードをお忘れの方はこちら') }}</a>
+                    <a class="green-link" href="{{ route('password.request') }}">{{ __('パスワードをお忘れの方はこちら') }}</a>
                 </div>
             @endif
         </div>

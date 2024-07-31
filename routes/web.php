@@ -13,43 +13,45 @@ use App\Http\Controllers\FavoriteController;
 
 Route::get('/',  [WebController::class, 'index'])->name('top');
 
-Route::controller(UserController::class)->group(function () {
-    Route::get('users/mypage', 'mypage')->name('mypage');
-    Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
-    Route::put('users/mypage', 'update')->name('mypage.update');
-    Route::get('users/delete', 'delete')->name('users.delete');
-    Route::delete('users/delete', 'destroy')->name('mypage.destroy');
-    Route::get('users/favorite', 'favorite')->name('users.favorite');
-});
-
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/create', [PostController::class, 'create'])->middleware(['auth', 'verified'])->name('posts.create');
-Route::post('/posts', [PostController::class, 'store'])->middleware(['auth', 'verified'])->name('posts.store');
-
-Route::get('/stores', [StoreController::class, 'index'])->name('stores.index');
-Route::get('/store/{store}', [StoreController::class, 'show'])->name('stores.show');
-
-Route::get('/items', [ItemController::class, 'index'])->name('items.index');
-Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
-Route::post('items/', [ItemController::class, 'store'])->name('items.store');
-Route::get('main', [ItemController::class, 'follow'])->name('items.follow');
-Route::get('/item/{item}/chart', [ItemController::class, 'chart'])->name('items.chart');
-Route::get('/item/{item}/graph', [ItemController::class, 'batch'])->name('items.batch');
-
-Route::post('follows/{item_id}', [FollowController::class, 'store'])->name('follows.store');
-Route::delete('follows/{item_id}', [FollowController::class, 'destroy'])->name('follows.destroy');
-
-Route::post('favorites/{post_id}', [FavoriteController::class, 'store'])->name('favorite.store');
-Route::delete('favorites/{post_id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::controller(UserController::class)->group(function () {
+        Route::get('users/mypage', 'mypage')->name('mypage');
+        Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
+        Route::put('users/mypage', 'update')->name('mypage.update');
+        Route::get('users/delete', 'delete')->name('users.delete');
+        Route::delete('users/delete', 'destroy')->name('mypage.destroy');
+        Route::get('users/favorite', 'favorite')->name('users.favorite');
+    });
+
+    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+    Route::get('/posts/create', [PostController::class, 'create'])->middleware(['auth', 'verified'])->name('posts.create');
+    Route::post('/posts', [PostController::class, 'store'])->middleware(['auth', 'verified'])->name('posts.store');
+
+    Route::get('/stores', [StoreController::class, 'index'])->name('stores.index');
+    Route::get('/store/{store}', [StoreController::class, 'show'])->name('stores.show');
+
+    Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+    Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
+    Route::post('items/', [ItemController::class, 'store'])->name('items.store');
+    Route::get('main', [ItemController::class, 'follow'])->name('items.follow');
+    Route::get('/item/{item}/chart', [ItemController::class, 'chart'])->name('items.chart');
+    Route::get('/item/{item}/graph', [ItemController::class, 'batch'])->name('items.batch');
+
+    Route::post('follows/{item_id}', [FollowController::class, 'store'])->name('follows.store');
+    Route::delete('follows/{item_id}', [FollowController::class, 'destroy'])->name('follows.destroy');
+
+    Route::post('favorites/{post_id}', [FavoriteController::class, 'store'])->name('favorite.store');
+    Route::delete('favorites/{post_id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
 });
 
 require __DIR__.'/auth.php';

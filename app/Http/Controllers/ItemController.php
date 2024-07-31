@@ -58,6 +58,11 @@ class ItemController extends Controller
 
     public function store(Request $request)
      {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
          $item = new Item();
          $item->name = $request->input('name');
          if ($request->hasFile('image')) {

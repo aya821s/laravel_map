@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container text-center">
+    <div class="text-center mb-5">
         <h1>気になる食材を、フォローしよう！</h1>
         <div class="row">
             @foreach($items as $item)

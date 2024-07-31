@@ -42,7 +42,7 @@
 
             <!-- Already Registered -->
             <div class="auth-contents py-1">
-                <a class="green-links" href="{{ route('login') }}">すでに登録済みの方はこちら</a>
+                <a class="green-link" href="{{ route('login') }}">すでに登録済みの方はこちら</a>
             </div>
 
             <!-- Register -->

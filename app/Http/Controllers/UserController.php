@@ -40,7 +40,7 @@ class UserController extends Controller
     public function favorite()
      {
          $user = Auth::user();
-         $favorite_posts = $user->favorite_posts;
+         $favorite_posts = $user->favorite_posts()->orderBy('created_at', 'desc')->get();
          return view('users.favorite', compact('favorite_posts'));
      }
 

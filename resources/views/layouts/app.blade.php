@@ -37,6 +37,15 @@
             @endcomponent
 
             <main class="row">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 @if (Auth::guard('admin')->check())
                 @include('layouts.sidebar') @yield('content')
                 @else @yield('content') @endif

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light header-bg">
     <div class="container">
         <div class="d-flex justify-content-center">
-            <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
+            <a class="navbar-brand d-flex align-items-center" href="{{ url('main') }}">
                 <img src="{{asset('/storage/logo_images/logo_g.png')}}" style="height: 26px; margin-right: 6px;">
                 {{ config('app.name', 'Laravel') }}
             </a>
@@ -16,9 +16,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">ログイン</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                          <a class="nav-link" href="{{ route('register') }}">登録</a>
-                    </li>
+                    </li> --}}
                 @elseif (Auth::guard('admin')->check())
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

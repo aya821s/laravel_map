@@ -14,7 +14,7 @@
         </a>
     @else
         <h3>フォローしている食材</h3>
-        <div class="row text-center">
+        <div class="row wrapper text-center">
             @foreach ($follow_items as $follow_item)
                 <div class="p-1">
                     <div class="main-item-card px-1 py-3">
@@ -42,7 +42,7 @@
         </div>
     @endif
 </div>
-<div class="col-sm-6 text-center px-4">
+<div class="col-sm-6 text-center px-4 mb-5">
     <h3 class="pb-1">最新の投稿</h3>
     @if ($posts->isEmpty())
         <p>投稿はありません。</p>
