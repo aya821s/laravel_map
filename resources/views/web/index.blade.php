@@ -12,7 +12,7 @@
         <a href="{{ route('register') }}" class="btn register_btn">今すぐ登録</a>
     </div>
     <div class="col-sm-5 pt3">
-        <img src="{{asset('/storage/top.jpg')}}" style="height: 450px;">
+        <img src="{{asset('/images/top.jpg')}}" style="height: 450px;">
     </div>
 </div>
 @endsection
