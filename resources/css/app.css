@@ -1,3 +1,291 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+img {
+    height: 100px;
+}
+
+:root {
+    --bs-link-color: #5fb560;
+    --bs-link-hover-color: #5fb560;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+}
+
+h3 {
+    font-size: 1.1rem;
+}
+
+.btn {
+    background-color: rgb(9, 104, 9);
+    color: white;
+}
+
+.green-link {
+    text-decoration: none;
+    color: rgb(9, 104, 9);
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh + 100px);
+}
+
+.header-bg {
+    background-color: #f8f8f8;
+}
+
+footer {
+    margin-top: auto;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer-container {
+    background-color: #f8f8f8;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 20px;
+}
+
+.navbar-brand,
+.header_menu {
+    color: rgb(10, 118, 10);
+}
+
+.navbar-brand:hover,
+.header_menu:hover,
+.header_menu:active {
+    color: rgb(9, 102, 9) !important;
+}
+
+main {
+    min-height: calc(100vh - 116px);
+    box-sizing: border-box;
+    padding: 20px 5%;
+    position: relative;
+}
+
+.auth-container {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.auth-contents {
+    color: #ef8133;
+    text-decoration: none;
+    text-align: center;
+}
+
+.mypage-container {
+    width: 450px;
+    margin: 0 auto;
+}
+
+.fav_container {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.item-container {
+    position: relative;
+}
+
+.top_text {
+    line-height: 2.8rem;
+}
+
+.register_btn {
+    width: 150px;
+    background-color: rgb(10, 118, 10);
+    text-decoration: none;
+    color: white;
+}
+
+.register_btn:hover {
+    width: 150px;
+    background-color: rgb(9, 104, 9);
+    text-decoration: none;
+    color: white;
+}
+
+.follow-btn {
+    border: 2px solid rgb(10, 118, 10);
+    background-color: white;
+    width: 70%;
+}
+
+.follow-btn:hover,
+.follow-btn:active {
+    background-color: rgb(10, 118, 10);
+    color: white;
+    width: 70%;
+}
+
+.unfollow-btn {
+    background-color: rgb(10, 118, 10);
+    color: white;
+    width: 70%;
+}
+
+.unfollow-btn:hover,
+.unfollow-btn:active {
+    background-color: white;
+    color: rgb(10, 118, 10);
+}
+
+.item-form {
+    width: 70%;
+    margin: auto;
+}
+
+.item-card {
+    background-color: #f9f9ec;
+    border-radius: 10px;
+    min-height: 200px;
+}
+.green-btn {
+    background-color: rgb(10, 118, 10);
+    color: white;
+    transition: 0.15s;
+    width: 300px;
+}
+
+.btn:hover,
+.green-btn:hover {
+    background-color: #096809;
+    color: white;
+    transition: 0.15s;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.marker {
+    background-image: url("../../../laravel-map/public/storage/mapbox-icon.png");
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.modal-dialog {
+    max-width: 1000px;
+    width: 100%;
+    margin: 20px auto;
+    transform: translateX(-100%);
+    transition: transform 1s ease;
+}
+
+.modal.show .modal-dialog {
+    transform: translateX(0);
+}
+
+.modal-content {
+    min-height: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.postform {
+    width: 400px;
+}
+
+.card {
+    background-color: rgb(248, 248, 248);
+}
+
+#postPrice {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+#postImage {
+    width: 150px;
+}
+
+.soldout {
+    font-size: 1.25rem;
+    color: red;
+}
+
+#map {
+    position: absolute;
+    top: 70px;
+    bottom: 0;
+    width: 59%;
+    height: 85%;
+}
+
+.marker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: -8px;
+    width: 60px;
+    height: 30px;
+    background-color: rgba(10, 118, 10);
+    padding: 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.price-marker {
+    position: absolute;
+    color: white;
+}
+
+.marker::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    bottom: -12px;
+    border-top: 15px solid rgba(10, 118, 10);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+}
+
+.graph-icon {
+    padding: 3px;
+    border-radius: 10%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(10, 118, 10);
+    color: white;
+    text-decoration: none;
+}
+
+.main-item-card {
+    background-color: #f9f9ec;
+    border-radius: 10px;
+    height: 167px;
+}
+.main-card-bg {
+    background-color: #f9f9f9;
+}
+
+#posts {
+    max-height: 475px;
+    overflow-y: auto;
+    padding: 0 10px 0 0;
+}
+@media screen and (min-width: 1400px) {
+    .main-container {
+        max-width: 1200px;
+    }
+}
