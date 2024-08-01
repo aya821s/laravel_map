@@ -9,7 +9,7 @@
                     <div class="item-card px-1 py-3">
                         <a class="text-reset text-decoration-none" href="{{ route('items.show', $item) }}">
                             @if ($item->image !== "")
-                                <img class="d-block mx-auto" src="{{ asset('/storage/item_images/'. $item->image) }}" style="height: 100;">
+                                <img class="d-block mx-auto" src="{{ asset('/images/item_images/'. $item->image) }}" style="height: 100;">
                             @endif
                             <p>{{$item->name}}</p>
                         </a>

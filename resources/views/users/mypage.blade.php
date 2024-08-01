@@ -20,7 +20,7 @@
 
     <div class="mb-4">
         @if ($user->image !== "")
-            <img src="{{ asset('/storage/user_images/'. $user->image) }}" style="height: 100px;" class="d-block mx-auto">
+            <img src="{{ asset('/images/user_images/'. $user->image) }}" style="height: 100px;" class="d-block mx-auto">
         @endif
     </div>
     <div class="row pb-2 mb-2 border-bottom d-flex align-items-center">

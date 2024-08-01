@@ -9,7 +9,7 @@
         <h1>会員情報の編集</h1>
         <div class="mb-3">
             @if ($user->image !== "")
-                <img src="{{ asset('/storage/user_images/'. $user->image) }}" style="height: 100px; width: auto;" class="d-block mx-auto">
+                <img src="{{ asset('/images/user_images/'. $user->image) }}" style="height: 100px; width: auto;" class="d-block mx-auto">
             @endif
         </div>
         <form method="POST" action="{{ route('mypage') }}" enctype="multipart/form-data">

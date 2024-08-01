@@ -16,7 +16,7 @@
                 <h2>{{ $post->price }}円</h2>
 
                 @if ($post->image !== "")
-                    <img src="{{ asset('/storage/post_images/'. $post->image) }}" style="width: 250;">
+                    <img src="{{ asset('/images/post_images/'. $post->image) }}" style="width: 250;">
                 @endif
 
                 <p>{{ $post->description }}</p>

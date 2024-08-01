@@ -22,7 +22,7 @@
                     <div class="main-item-card px-1 py-3">
                         <a class="text-reset text-decoration-none" href="{{ route('items.show', $follow_item) }}">
                             @if ($follow_item->image !== "")
-                                <img class="d-block mx-auto" src="{{ asset('/storage/item_images/'. $follow_item->image) }}" style="height: 100;">
+                                <img class="d-block mx-auto" src="{{ asset('/images/item_images/'. $follow_item->image) }}" style="height: 100;">
                             @endif
                             <p class="my-2">{{$follow_item->name}}</p>
                         </a>
@@ -55,9 +55,9 @@
                     <div class="col-sm-3 d-flex align-items-center">
                         <div class="card-img flex-shrink-0">
                             @if ($post->image !== "")
-                                <img src="{{ asset('/storage/post_images/'. $post->image) }}">
+                                <img src="{{ asset('/images/post_images/'. $post->image) }}">
                             @else ($post->store->image !== "")
-                                <img src="{{ asset('/storage/store_images/'. $post->store->image) }}">
+                                <img src="{{ asset('/images/store_images/'. $post->store->image) }}">
                             @endif
                         </div>
                     </div>

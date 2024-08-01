@@ -2,7 +2,7 @@
     <div class="container">
         <div class="d-flex justify-content-center">
             <a class="navbar-brand d-flex align-items-center" href="{{ Auth::guard('admin')->check() ? route('admin.home') : url('main') }}">
-                <img src="{{asset('/storage/logo_images/logo_g.png')}}" style="height: 26px; margin-right: 6px;">
+                <img src="{{asset('/images/logo_images/logo_g.png')}}" style="height: 26px; margin-right: 6px;">
                 {{ config('app.name', 'Laravel') }}
             </a>
         </div>

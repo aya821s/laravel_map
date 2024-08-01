@@ -20,9 +20,9 @@
                 <div class="col-sm-3 d-flex align-items-center">
                     <div class="card-img flex-shrink-0">
                         @if ($post->image !== "")
-                            <img src="{{ asset('/storage/post_images/'. $post->image) }}">
+                            <img src="{{ asset('/images/post_images/'. $post->image) }}">
                         @else ($post->store->image !== "")
-                            <img src="{{ asset('/storage/store_images/'. $post->store->image) }}">
+                            <img src="{{ asset('/images/store_images/'. $post->store->image) }}">
                         @endif
                     </div>
                 </div>
